@@ -7,6 +7,7 @@ export class NamuWikiRule implements TextRule {
 
   public async makeMessage(src: string): Promise<string> {
     const match = /!꺼라 (.*)/.exec(src);
-    return `https://namu.wiki/w/${match[1]}`;
+    const word = match ? match[1] : '';
+    return `https://namu.wiki/w/${word}`;
   }
 }
