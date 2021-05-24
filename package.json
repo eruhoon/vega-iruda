@@ -1,0 +1,19 @@
+{
+  "name": "vega-iruda",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eruhoon/vega-iruda.git"
+  },
+  "author": "eruhoon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eruhoon/vega-iruda/issues"
+  },
+  "homepage": "https://github.com/eruhoon/vega-iruda#readme"
+}
