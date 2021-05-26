@@ -7,8 +7,10 @@ export class SearchRule implements TextRule {
 
   public async makeMessage(src: string): Promise<string> {
     const match = /!검색 (.*)/.exec(src);
-    const patt=/([+`~!@#$%^&*|\\\'\";:\/?])/gi;
-    const word = match ? match[1].replace(patt, function(s) {return encodeURIComponents(s)}) : '';
+    const patt = /([+`~!@#$%^&*|\\\'\";:\/?])/gi;
+    const word = match
+      ? match[1].replace(patt, (s) => encodeURIComponent(s))
+      : '';
     return `https://www.google.co.kr/search?q=${word}`;
   }
 }
