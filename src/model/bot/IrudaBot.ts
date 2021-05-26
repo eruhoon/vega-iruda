@@ -5,6 +5,7 @@ import { NamuWikiRule } from '../rule/NamuWikiRule';
 import { RandomNumberRule } from '../rule/RandomNumberRule';
 import { SearchRule } from '../rule/SearchRule';
 import { ClockRule } from '../rule/ClockRule';
+import { GandelRule } from '../rule/GandelRule';
 
 export class IrudaBot extends Bot {
   public constructor() {
@@ -15,6 +16,7 @@ export class IrudaBot extends Bot {
       new RandomNumberRule(),
       new CoronaRule(),
       new ClockRule(),
+      new GandelRule(),
     ]);
   }
 }
