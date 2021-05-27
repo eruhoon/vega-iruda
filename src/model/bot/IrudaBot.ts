@@ -6,6 +6,7 @@ import { RandomNumberRule } from '../rule/RandomNumberRule';
 import { SearchRule } from '../rule/SearchRule';
 import { ClockRule } from '../rule/ClockRule';
 import { GandelRule } from '../rule/GandelRule';
+import { PokemonRule } from '../rule/PokemonRule';
 
 export class IrudaBot extends Bot {
   public constructor() {
@@ -17,6 +18,7 @@ export class IrudaBot extends Bot {
       new CoronaRule(),
       new ClockRule(),
       new GandelRule(),
+      new PokemonRule(),
     ]);
   }
 }
