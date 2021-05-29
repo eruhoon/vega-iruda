@@ -7,6 +7,12 @@ import { SearchRule } from '../rule/SearchRule';
 import { ClockRule } from '../rule/ClockRule';
 import { GandelRule } from '../rule/GandelRule';
 import { PokemonRule } from '../rule/PokemonRule';
+import { TyphoonRule } from '../rule/TyphoonRule';
+import { BojRule } from '../rule/BojRule';
+import { CharacterSearchRule } from '../rule/CharacterSearchRule';
+import { PollenRule } from '../rule/PollenRule';
+import { DustRule } from '../rule/DustRule';
+import { LolScheduleRule } from '../rule/LolScheduleRule';
 
 export class IrudaBot extends Bot {
   public constructor() {
@@ -19,6 +25,12 @@ export class IrudaBot extends Bot {
       new ClockRule(),
       new GandelRule(),
       new PokemonRule(),
+      new TyphoonRule(),
+      new BojRule(),
+      new CharacterSearchRule(),
+      new PollenRule(),
+      new DustRule(),
+      new LolScheduleRule(),
     ]);
   }
 }
