@@ -1,20 +1,21 @@
 import axios from 'axios';
 import * as cheerio from 'cheerio';
-
+import { Response } from '../../framework/response/Response';
+import { TextResponse } from '../../framework/response/TextReponse';
 import { TextRule } from '../../framework/rule/TextRule';
 
-export class CoronaRule implements TextRule {
+export class CoronaRule extends TextRule {
   public match(src: string): boolean {
     return src === '!코로나';
   }
 
-  public async makeMessage(_: string): Promise<string> {
+  public async makeMessage(_: string): Promise<Response> {
     const { data } = await axios.get(
       'http://ncov.mohw.go.kr/bdBoardList_Real.do?brdId=1&brdGubun=11&ncvContSeq=&contSeq=&board_id=&gubun='
     );
 
     if (!data) {
-      return '파싱 에러';
+      return new TextResponse('파싱 에러');
     }
 
     const $ = cheerio.load(data, {
@@ -22,6 +23,6 @@ export class CoronaRule implements TextRule {
     });
     const date = $('h5.s_title_in3 .t_date').eq(0).text();
     const rawTotal = $('.caseTable .inner_value').eq(0).text();
-    return `${rawTotal} ${date}`;
+    return new TextResponse(`${rawTotal} ${date}`);
   }
 }

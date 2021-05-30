@@ -9,6 +9,6 @@ export class Bot {
 
   public async process(src: string): Promise<string | null> {
     const matched = this.mRules.find((rule) => rule.match(src));
-    return matched ? await matched.makeMessage(src) : null;
+    return matched ? (await matched.makeMessage(src)).serialize() : null;
   }
 }
