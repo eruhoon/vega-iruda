@@ -1,5 +1,7 @@
 import axios from 'axios';
 import * as cheerio from 'cheerio';
+import { GeneralPurposeCardBody } from '../../framework/response/body/GeneralPurposeCardBody';
+import { GeneralPurposeCardResponse } from '../../framework/response/GeneralPurposeCardResponse';
 import { Response } from '../../framework/response/Response';
 import { TextResponse } from '../../framework/response/TextReponse';
 import { TextRule } from '../../framework/rule/TextRule';
@@ -23,6 +25,15 @@ export class CoronaRule extends TextRule {
     });
     const date = $('h5.s_title_in3 .t_date').eq(0).text();
     const rawTotal = $('.caseTable .inner_value').eq(0).text();
-    return new TextResponse(`${rawTotal} ${date}`);
+
+    return new GeneralPurposeCardResponse(
+      new GeneralPurposeCardBody(
+        'https://corona-live.com/',
+        rawTotal,
+        'https://i.imgur.com/B9H3UYL.png',
+        date,
+        false
+      )
+    );
   }
 }
