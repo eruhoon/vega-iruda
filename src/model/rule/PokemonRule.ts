@@ -28,9 +28,7 @@ export class PokemonRule extends TextRule {
       const idx = isNaN(parseInt(word)) ? 3 : 1;
 
       const href = $(`td:contains('${word}')`)
-        .filter(function (i) {
-          return $(`td:contains('${word}')`).eq(i).index() == idx;
-        })
+        .filter((i) => $(`td:contains('${word}')`).eq(i).index() == idx)
         .parent()
         .find('td:eq(3) a')
         .attr('href');
@@ -39,9 +37,10 @@ export class PokemonRule extends TextRule {
           ? decodeURI('https://pokemon.fandom.com/ko/wiki/전국도감')
           : decodeURI(`https://pokemon.fandom.com${href}`)
       );
-    } else
+    } else {
       return new TextResponse(
         decodeURI('https://pokemon.fandom.com/ko/wiki/전국도감')
       );
+    }
   }
 }
