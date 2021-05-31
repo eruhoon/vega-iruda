@@ -32,7 +32,7 @@ export class MeguminRule extends TextRule {
     const diffMin = (diffDate % 3600) / 60;
     const diffSec = diffDate % 60;
     let msg =
-      '탈출 시간까지' +
+      '탈출 시간까지 ' +
       diffHour.toFixed() +
       '시 ' +
       diffMin.toFixed() +
@@ -41,10 +41,10 @@ export class MeguminRule extends TextRule {
       '초!';
 
     if (alreadyLate) {
-      msg += '이미 놀고있는 메구밍입니다.';
+      msg = '이미 놀고있는 메구밍입니다.';
     }
     
-    msg += '     탈출까지 ' + diffDays + '일 남았습니다.'
+    msg += ` 탈출까지 ${diffDays}일 남았습니다.`
 
     return new TextResponse(msg);
   }
