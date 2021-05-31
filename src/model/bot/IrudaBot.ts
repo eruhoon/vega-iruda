@@ -13,6 +13,7 @@ import { CharacterSearchRule } from '../rule/CharacterSearchRule';
 import { PollenRule } from '../rule/PollenRule';
 import { DustRule } from '../rule/DustRule';
 import { LolScheduleRule } from '../rule/LolScheduleRule';
+import { MeguminRule } from '../rule/MeguminRule';
 
 export class IrudaBot extends Bot {
   public constructor() {
@@ -24,6 +25,7 @@ export class IrudaBot extends Bot {
       new CoronaRule(),
       new ClockRule(),
       new GandelRule(),
+      new MeguminRule(),
       new PokemonRule(),
       new TyphoonRule(),
       new BojRule(),
