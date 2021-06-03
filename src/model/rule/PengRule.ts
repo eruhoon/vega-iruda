@@ -17,7 +17,7 @@ export class PengRule extends TextRule {
     );
     
     let diffDay = (+nowDate- +targetDate)/3600/24/1000; 
-    msg = `탈출한지 ${diffDay.toFixed()}일 지났읍니다`
+    msg = `탈출한지 ${diffDay.toFixed()}일 지났읍니다`;
     return new TextResponse(msg);
   }
 }
