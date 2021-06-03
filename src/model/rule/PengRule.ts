@@ -4,20 +4,21 @@ import { TextRule } from '../../framework/rule/TextRule';
 
 export class PengRule extends TextRule {
   public match(src: string): boolean {
-    return src == '!펭' || src == "!vpd"
+    return src === '!펭' || src === "!vpd"
   }
 
   public async makeMessage(src: string): Promise<Response> {
     let msg = "";
     const nowDate = new Date();
-    const targetDate = new Date(
-      2021,
-      3,
-      18
-    );
+    const targetDate = new Date(2021,3,18);
     
-    let diffDay = (+nowDate- +targetDate)/3600/24/1000; 
-    msg = `탈출한지 ${diffDay.toFixed()}일 지났읍니다`;
+    const diff = (+nowDate- +targetDate)/1000;
+    const diffDay = diff / 3600 / 24
+    const diffHour = (diff / 3600) % 24
+    const diffMin =  (diff % 3600) / 60;
+    const diffSec = diff % 60
+    
+    msg = `펭은 곤뇽으로 부터 탈출한지 +${diffDay.toFixed()}일 ${diffHour.toFixed()}시간 ${diffMin.toFixed()}분 ${diffSec.toFixed()}초 지났읍니다`;
     return new TextResponse(msg);
   }
 }
