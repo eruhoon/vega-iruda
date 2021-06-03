@@ -6,6 +6,7 @@ import { RandomNumberRule } from '../rule/RandomNumberRule';
 import { SearchRule } from '../rule/SearchRule';
 import { ClockRule } from '../rule/ClockRule';
 import { GandelRule } from '../rule/GandelRule';
+import { PengRule } from '../rule/PengRule';
 import { PokemonRule } from '../rule/PokemonRule';
 import { TyphoonRule } from '../rule/TyphoonRule';
 import { BojRule } from '../rule/BojRule';
@@ -27,6 +28,7 @@ export class IrudaBot extends Bot {
       new ClockRule(),
       new GandelRule(),
       new MeguminRule(),
+      new PengRule(),
       new PokemonRule(),
       new TyphoonRule(),
       new BojRule(),
