@@ -7,7 +7,7 @@ const ONE_DAY = 24 * ONE_HOUR;
 
 export abstract class TargetDateRuleTemplate extends TextRule {
   protected createTargetDate(year: number, month: number, date: number): Date {
-    return new Date(`${year}-${month + 1}-${date}`);
+    return new Date(`${year}-${month}-${date}`);
   }
 
   protected createTargetTime(option: TargetTimeOption) {
