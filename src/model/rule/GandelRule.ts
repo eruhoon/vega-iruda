@@ -1,22 +1,18 @@
 import { Response } from '../../framework/response/Response';
 import { TextResponse } from '../../framework/response/TextReponse';
-import { TextRule } from '../../framework/rule/TextRule';
+import { TargetDateRuleTemplate } from './TargetDateRuleTemplate';
 
-export class GandelRule extends TextRule {
+export class GandelRule extends TargetDateRuleTemplate {
   public match(src: string): boolean {
     return src == '!간' || src == '!간델';
   }
 
   public async makeMessage(src: string): Promise<Response> {
     const curDate = new Date();
-    const targetDate = new Date(
-      curDate.getFullYear(),
-      curDate.getMonth(),
-      curDate.getDate(),
-      19,
-      30,
-      0
-    );
+    const targetDate = this.createTargetTime({
+      hour: 19,
+      minute: 30,
+    });
     let diffDate = +targetDate - +curDate;
 
     let alreadyLate = diffDate < 0 || curDate.getHours() < 7;
