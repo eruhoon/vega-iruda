@@ -1,7 +1,7 @@
 import { GeneralPurposeCardBody } from '../../framework/response/body/GeneralPurposeCardBody';
 import { GeneralPurposeCardResponse } from '../../framework/response/GeneralPurposeCardResponse';
 import { Response } from '../../framework/response/Response';
-import { TargetDateRuleTemplate } from './TargetDateRuleTemplate';
+import { DiffTime, TargetDateRuleTemplate } from './TargetDateRuleTemplate';
 
 export class YungRule extends TargetDateRuleTemplate {
   public match(src: string): boolean {
@@ -43,27 +43,4 @@ export class YungRule extends TargetDateRuleTemplate {
     ].join(' ');
     return `융퇴까지 ${timeStr}`;
   }
-
-  private getDiff(target: number): DiffTime {
-    const now = new Date().getTime();
-    const oneSecond = 1000;
-    const oneMinute = 60 * oneSecond;
-    const oneHour = 60 * oneMinute;
-    const oneDay = 24 * oneHour;
-
-    const diff = target - now;
-    return {
-      day: Math.floor(diff / oneDay),
-      hour: Math.floor((diff % oneDay) / oneHour),
-      minute: Math.floor((diff % oneHour) / oneMinute),
-      second: Math.floor((diff % oneMinute) / oneSecond),
-    };
-  }
 }
-
-type DiffTime = {
-  day: number;
-  hour: number;
-  minute: number;
-  second: number;
-};
