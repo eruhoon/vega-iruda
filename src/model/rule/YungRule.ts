@@ -49,7 +49,7 @@ export class YungRule extends TextRule {
     const diff = target - now;
     return {
       day: Math.floor(diff / oneDay),
-      hour: Math.floor(diff % oneDay) / oneHour,
+      hour: Math.floor((diff % oneDay) / oneHour),
       minute: Math.floor((diff % oneHour) / oneMinute),
       second: Math.floor((diff % oneMinute) / oneSecond),
     };
