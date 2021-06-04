@@ -9,7 +9,7 @@ export class YungRule extends TargetDateRuleTemplate {
   }
 
   public async makeMessage(src: string): Promise<Response> {
-    const finalTarget = new Date('2021-10-02').getTime();
+    const finalTarget = this.createTargetDate(2021, 10, 2).getTime();
     const target = this.createTargetTime({ hour: 18 }).getTime();
 
     const diff = this.getDiff(target);
@@ -32,6 +32,9 @@ export class YungRule extends TargetDateRuleTemplate {
 
   private getDiffTimeMessage(diff: DiffTime): string {
     const { hour, minute, second } = diff;
+    if (hour < 0) {
+      return '퇴근했다!!!!';
+    }
     const timeStr = [
       hour > 0 ? `${hour}시간` : '',
       minute > 0 ? `${minute}분` : '',
