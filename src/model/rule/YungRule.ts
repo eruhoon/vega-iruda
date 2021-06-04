@@ -1,17 +1,16 @@
 import { GeneralPurposeCardBody } from '../../framework/response/body/GeneralPurposeCardBody';
 import { GeneralPurposeCardResponse } from '../../framework/response/GeneralPurposeCardResponse';
 import { Response } from '../../framework/response/Response';
-import { TextRule } from '../../framework/rule/TextRule';
+import { TargetDateRuleTemplate } from './TargetDateRuleTemplate';
 
-export class YungRule extends TextRule {
+export class YungRule extends TargetDateRuleTemplate {
   public match(src: string): boolean {
     return src === '!융' || src === '!dbd';
   }
 
   public async makeMessage(src: string): Promise<Response> {
     const finalTarget = new Date('2021-10-02').getTime();
-    const now = new Date();
-    const target = this.getTargetDate(now, 18).getTime();
+    const target = this.createTargetTime({ hour: 18 }).getTime();
 
     const diff = this.getDiff(target);
 
@@ -40,15 +39,6 @@ export class YungRule extends TextRule {
       hour === 0 ? '!!' : '...',
     ].join(' ');
     return `융퇴까지 ${timeStr}`;
-  }
-
-  private getTargetDate(now: Date, hour: number): Date {
-    const target = new Date(now);
-    target.setHours(hour);
-    target.setMinutes(0);
-    target.setSeconds(0);
-    target.setMilliseconds(0);
-    return target;
   }
 
   private getDiff(target: number): DiffTime {
