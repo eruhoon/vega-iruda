@@ -9,19 +9,22 @@ export class YungRule extends TextRule {
   }
 
   public async makeMessage(src: string): Promise<Response> {
+    const finalTarget = new Date('2021-10-02').getTime();
     const now = new Date();
     const target = this.getTargetDate(now, 18).getTime();
-    const diff = this.getDiff(target);
 
+    const diff = this.getDiff(target);
     const { hour, minute, second } = diff;
-    const msg = `${hour}시간 ${minute}분 ${second}초...`;
+
+    const finalDiff = this.getDiff(finalTarget);
+    const { day } = finalDiff;
 
     return new GeneralPurposeCardResponse(
       new GeneralPurposeCardBody(
         '',
-        msg,
+        `융퇴까지 ${hour}시간 ${minute}분 ${second}초...`,
         'https://i.imgur.com/FIgQea4b.png',
-        '융퇴근까지.....',
+        `석방까진..... ${day + 1}일`,
         false
       )
     );
@@ -41,10 +44,12 @@ export class YungRule extends TextRule {
     const oneSecond = 1000;
     const oneMinute = 60 * oneSecond;
     const oneHour = 60 * oneMinute;
+    const oneDay = 24 * oneHour;
 
     const diff = target - now;
     return {
-      hour: Math.floor(diff / oneHour),
+      day: Math.floor(diff / oneDay),
+      hour: Math.floor(diff % oneDay) / oneHour,
       minute: Math.floor((diff % oneHour) / oneMinute),
       second: Math.floor((diff % oneMinute) / oneSecond),
     };
@@ -52,6 +57,7 @@ export class YungRule extends TextRule {
 }
 
 type DiffTime = {
+  day: number;
   hour: number;
   minute: number;
   second: number;
