@@ -1,5 +1,6 @@
+import { GeneralPurposeCardBody } from '../../framework/response/body/GeneralPurposeCardBody';
+import { GeneralPurposeCardResponse } from '../../framework/response/GeneralPurposeCardResponse';
 import { Response } from '../../framework/response/Response';
-import { TextResponse } from '../../framework/response/TextReponse';
 import { TextRule } from '../../framework/rule/TextRule';
 
 export class YungRule extends TextRule {
@@ -13,8 +14,17 @@ export class YungRule extends TextRule {
     const diff = this.getDiff(target);
 
     const { hour, minute, second } = diff;
-    const msg = `융 퇴근까지 ${hour}시간 ${minute}분 ${second}초....`;
-    return new TextResponse(msg);
+    const msg = `${hour}시간 ${minute}분 ${second}초...`;
+
+    return new GeneralPurposeCardResponse(
+      new GeneralPurposeCardBody(
+        '',
+        msg,
+        'https://i.imgur.com/FIgQea4b.png',
+        '융퇴근까지.....',
+        false
+      )
+    );
   }
 
   private getTargetDate(now: Date, hour: number): Date {
