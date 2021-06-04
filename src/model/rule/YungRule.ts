@@ -14,7 +14,8 @@ export class YungRule extends TextRule {
     const target = this.getTargetDate(now, 18).getTime();
 
     const diff = this.getDiff(target);
-    const { hour, minute, second } = diff;
+
+    const msg = this.getDiffTimeMessage(diff);
 
     const finalDiff = this.getDiff(finalTarget);
     const { day } = finalDiff;
@@ -22,12 +23,23 @@ export class YungRule extends TextRule {
     return new GeneralPurposeCardResponse(
       new GeneralPurposeCardBody(
         '',
-        `융퇴까지 ${hour}시간 ${minute}분 ${second}초...`,
+        msg,
         'https://i.imgur.com/FIgQea4b.png',
         `석방까진..... ${day + 1}일`,
         false
       )
     );
+  }
+
+  private getDiffTimeMessage(diff: DiffTime): string {
+    const { hour, minute, second } = diff;
+    const timeStr = [
+      hour > 0 ? `${hour}시간` : '',
+      minute > 0 ? `${minute}분` : '',
+      second > 0 ? `${second}초` : '',
+      hour === 0 ? '!!' : '...',
+    ].join(' ');
+    return `융퇴까지 ${timeStr}`;
   }
 
   private getTargetDate(now: Date, hour: number): Date {
