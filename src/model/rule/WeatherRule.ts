@@ -61,7 +61,8 @@ export class WeatherRule extends TextRule {
     const weathers: Weather[] = $weathers.toArray().map((e) => {
       const $e = $(e);
       const name = $e.find('dt').eq(0).text();
-      const weather = $e.find('dd.weather').attr('alt')?.toString() || '';
+      const $weathers = $e.find('dd.weather').attr('alt');
+      const weather = $weathers ? $weathers.toString() : '';
       const imgPath = $e.find('img').attr('src')?.toString() || '';
       const img = `https://www.weather.go.kr${imgPath}`;
       const temp = parseFloat($e.find('dd.temp').text());
