@@ -17,6 +17,7 @@ import { LolScheduleRule } from '../rule/LolScheduleRule';
 import { MeguminRule } from '../rule/MeguminRule';
 import { LoLSchessSearchRule } from '../rule/LoLSchessSearchRule';
 import { YungRule } from '../rule/YungRule';
+import { WeatherRule } from '../rule/WeatherRule';
 
 export class IrudaBot extends Bot {
   public constructor() {
@@ -39,6 +40,7 @@ export class IrudaBot extends Bot {
       new DustRule(),
       new LolScheduleRule(),
       new LoLSchessSearchRule(),
+      new WeatherRule(),
     ]);
   }
 }
