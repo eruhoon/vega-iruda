@@ -5,21 +5,20 @@ import { GeneralPurposeCardBody } from '../../framework/response/body/GeneralPur
 import { GeneralPurposeCardResponse } from '../../framework/response/GeneralPurposeCardResponse';
 import { Response } from '../../framework/response/Response';
 import { TextResponse } from '../../framework/response/TextReponse';
-import { TextRule } from '../../framework/rule/TextRule';
+import { ArgumentRuleTemplate } from './ArgumentRuleTemplate';
 
-export class WeatherRule extends TextRule {
+export class WeatherRule extends ArgumentRuleTemplate {
   private readonly URL =
     'https://www.weather.go.kr/weather/main-now-weather.jsp';
   private weathersCache: Weather[] | null = null;
   private expires: number = 0;
 
-  public match(src: string): boolean {
-    return src.startsWith('!날씨 ');
+  public constructor() {
+    super('날씨');
   }
 
-  public async makeMessage(src: string): Promise<Response> {
-    const match = /!날씨 (.*)/.exec(src);
-    const city = match ? match[1] : '';
+  protected async makeMessageWithArg(arg: string): Promise<Response> {
+    const city = arg;
     const weathers = await this.getWeathers();
     const weather = weathers.find((w) => w.name === city);
     if (!weather) {

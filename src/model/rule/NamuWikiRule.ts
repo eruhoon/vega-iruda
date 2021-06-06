@@ -1,15 +1,14 @@
 import { Response } from '../../framework/response/Response';
 import { TextResponse } from '../../framework/response/TextReponse';
-import { TextRule } from '../../framework/rule/TextRule';
+import { ArgumentRuleTemplate } from './ArgumentRuleTemplate';
 
-export class NamuWikiRule extends TextRule {
-  public match(src: string): boolean {
-    return src.startsWith('!꺼라 ');
+export class NamuWikiRule extends ArgumentRuleTemplate {
+  public constructor() {
+    super('꺼라');
   }
 
-  public async makeMessage(src: string): Promise<Response> {
-    const match = /!꺼라 (.*)/.exec(src);
-    const word = match ? match[1] : '';
+  protected async makeMessageWithArg(arg: string): Promise<Response> {
+    const word = arg;
     return new TextResponse(`https://namu.wiki/w/${word}`);
   }
 }
