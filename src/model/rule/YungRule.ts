@@ -20,13 +20,11 @@ export class YungRule extends TargetDateRuleTemplate {
     const { day } = finalDiff;
 
     return new GeneralPurposeCardResponse(
-      new GeneralPurposeCardBody(
-        '',
-        msg,
-        'https://i.imgur.com/FIgQea4b.png',
-        `석방까진..... ${day + 1}일`,
-        false
-      )
+      new GeneralPurposeCardBody({
+        title: msg,
+        subtitle: `석방까진..... ${day + 1}일`,
+        icon: 'https://i.imgur.com/FIgQea4b.png',
+      })
     );
   }
 

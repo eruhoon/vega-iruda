@@ -27,13 +27,12 @@ export class CoronaRule extends TextRule {
     const rawTotal = $('.caseTable .inner_value').eq(0).text();
 
     return new GeneralPurposeCardResponse(
-      new GeneralPurposeCardBody(
-        'https://corona-live.com/',
-        rawTotal,
-        'https://i.imgur.com/B9H3UYL.png',
-        date,
-        false
-      )
+      new GeneralPurposeCardBody({
+        link: 'https://corona-live.com/',
+        title: rawTotal,
+        subtitle: date,
+        icon: 'https://i.imgur.com/B9H3UYL.png',
+      })
     );
   }
 }
