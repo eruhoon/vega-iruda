@@ -1,8 +1,9 @@
 import axios from 'axios';
 import Cheerio from 'cheerio';
 import * as iconv from 'iconv-lite';
+import { Loader } from '../Loader';
 
-export class WeatherLoader {
+export class WeatherLoader implements Loader<WeatherLoaderResult[]> {
   private readonly URL =
     'https://www.weather.go.kr/weather/main-now-weather.jsp';
 
