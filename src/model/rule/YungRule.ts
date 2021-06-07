@@ -19,13 +19,11 @@ export class YungRule extends TargetDateRuleTemplate {
     const finalDiff = this.getDiff(finalTarget);
     const { day } = finalDiff;
 
-    return new GeneralPurposeCardResponse(
-      new GeneralPurposeCardBody({
-        title: msg,
-        subtitle: `석방까진..... ${day + 1}일`,
-        icon: 'https://i.imgur.com/FIgQea4b.png',
-      })
-    );
+    return new GeneralPurposeCardResponse({
+      title: msg,
+      subtitle: `석방까진..... ${day + 1}일`,
+      icon: 'https://i.imgur.com/FIgQea4b.png',
+    });
   }
 
   private getDiffTimeMessage(diff: DiffTime): string {

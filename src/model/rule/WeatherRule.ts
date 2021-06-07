@@ -24,14 +24,12 @@ export class WeatherRule extends ArgumentRuleTemplate {
     if (!weather) {
       return new TextResponse('검색 실패');
     }
-    return new GeneralPurposeCardResponse(
-      new GeneralPurposeCardBody({
-        link: this.URL,
-        title: `${city} 날씨`,
-        icon: weather.img,
-        subtitle: `${weather.weather} ${weather.temp}℃`,
-      })
-    );
+    return new GeneralPurposeCardResponse({
+      link: this.URL,
+      title: `${city} 날씨`,
+      icon: weather.img,
+      subtitle: `${weather.weather} ${weather.temp}℃`,
+    });
   }
 }
 
