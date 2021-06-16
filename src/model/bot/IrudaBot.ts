@@ -18,6 +18,7 @@ import { MeguminRule } from '../rule/MeguminRule';
 import { LoLSchessSearchRule } from '../rule/LoLSchessSearchRule';
 import { YungRule } from '../rule/YungRule';
 import { WeatherRule } from '../rule/WeatherRule';
+import { MapleGgRule } from '../rule/MapleGgRule';
 
 export class IrudaBot extends Bot {
   public constructor() {
@@ -30,6 +31,7 @@ export class IrudaBot extends Bot {
       new ClockRule(),
       new GandelRule(),
       new MeguminRule(),
+      new MapleGgRule(),
       new PengRule(),
       new YungRule(),
       new PokemonRule(),
