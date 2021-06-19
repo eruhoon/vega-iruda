@@ -6,7 +6,7 @@ import { ResponseType } from './ResponseType';
 export class GeneralPurposeCarouselResponse extends Response {
   public constructor(options: GeneralPurposeCardBodyOption[]) {
     super(
-      ResponseType.GENERAL_PURPOSE_CARD,
+      ResponseType.GENERAL_PURPOSE_CAROUSEL,
       new GeneralPurposeCarouselBody(options)
     );
   }
