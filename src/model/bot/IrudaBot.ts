@@ -20,6 +20,7 @@ import { YungRule } from '../rule/YungRule';
 import { WeatherRule } from '../rule/WeatherRule';
 import { MapleGgRule } from '../rule/MapleGgRule';
 import { TeraBurningRule } from '../rule/TeraBurningRule';
+import { KarylRule } from '../rule/KarylRule';
 
 export class IrudaBot extends Bot {
   public constructor() {
@@ -35,6 +36,7 @@ export class IrudaBot extends Bot {
       new MapleGgRule(),
       new PengRule(),
       new YungRule(),
+      new KarylRule(),
       new PokemonRule(),
       new TyphoonRule(),
       new BojRule(),
@@ -44,7 +46,7 @@ export class IrudaBot extends Bot {
       new LolScheduleRule(),
       new LoLSchessSearchRule(),
       new WeatherRule(),
-      new TeraBurningRule()
+      new TeraBurningRule(),
     ]);
   }
 }
