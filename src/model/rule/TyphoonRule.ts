@@ -4,7 +4,7 @@ import { TextRule } from '../../framework/rule/TextRule';
 
 export class TyphoonRule extends TextRule {
   public match(src: string): boolean {
-    return src == '!태풍';
+    return src === '!태풍';
   }
 
   public async makeMessage(src: string): Promise<Response> {

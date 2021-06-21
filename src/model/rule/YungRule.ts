@@ -1,4 +1,3 @@
-import { GeneralPurposeCardBody } from '../../framework/response/body/GeneralPurposeCardBody';
 import { GeneralPurposeCardResponse } from '../../framework/response/GeneralPurposeCardResponse';
 import { Response } from '../../framework/response/Response';
 import { DiffTime, TargetDateRuleTemplate } from './TargetDateRuleTemplate';

@@ -4,7 +4,7 @@ import { TextRule } from '../../framework/rule/TextRule';
 
 export class PollenRule extends TextRule {
   public match(src: string): boolean {
-    return src == '!꽃가루';
+    return src === '!꽃가루';
   }
 
   public async makeMessage(src: string): Promise<Response> {

@@ -6,30 +6,30 @@ export class GeneralPurposeCardBody implements ResponseBody {
   private readonly DEFAULT_TITLE = 'Untitled';
   private readonly DEFAULT_ORIENTATION = 'horizontal';
 
-  private mLink: string;
-  private mIcon: string;
-  private mTitle: string;
-  private mSubtitle: string;
-  private mNewWindow: boolean;
-  private mOrientation: OrienationOption;
+  private link: string;
+  private icon: string;
+  private title: string;
+  private subtitle: string;
+  private newWindow: boolean;
+  private orientation: OrienationOption;
 
   public constructor(option: GeneralPurposeCardBodyOption) {
-    this.mLink = option.link || '';
-    this.mTitle = option.title || this.DEFAULT_TITLE;
-    this.mIcon = option.icon || this.DEFAULT_ICON;
-    this.mSubtitle = option.subtitle || '';
-    this.mNewWindow = option.newWindow || false;
-    this.mOrientation = option.orientation || this.DEFAULT_ORIENTATION;
+    this.link = option.link || '';
+    this.title = option.title || this.DEFAULT_TITLE;
+    this.icon = option.icon || this.DEFAULT_ICON;
+    this.subtitle = option.subtitle || '';
+    this.newWindow = option.newWindow || false;
+    this.orientation = option.orientation || this.DEFAULT_ORIENTATION;
   }
 
   public serialize(): string {
     return JSON.stringify({
-      link: this.mLink,
-      icon: this.mIcon,
-      title: this.mTitle,
-      subtitle: this.mSubtitle,
-      newWindow: this.mNewWindow,
-      orientation: this.mOrientation,
+      link: this.link,
+      icon: this.icon,
+      title: this.title,
+      subtitle: this.subtitle,
+      newWindow: this.newWindow,
+      orientation: this.orientation,
     });
   }
 }

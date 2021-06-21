@@ -4,7 +4,7 @@ import { DiffTime, TargetDateRuleTemplate } from './TargetDateRuleTemplate';
 
 export class MeguminRule extends TargetDateRuleTemplate {
   public match(src: string): boolean {
-    return src == '!메' || src == '!메구밍';
+    return src === '!메' || src === '!메구밍';
   }
 
   public async makeMessage(src: string): Promise<Response> {
