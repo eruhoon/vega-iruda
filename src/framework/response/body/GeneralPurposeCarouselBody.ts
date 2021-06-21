@@ -5,6 +5,7 @@ export class GeneralPurposeCarouselBody implements ResponseBody {
   private readonly DEFAULT_ICON =
     'https://mycast.xyz/assets/image/login/logo-300.png';
   private readonly DEFAULT_TITLE = 'Untitled';
+  private readonly DEFAULT_ORIENTATION = 'vertical';
 
   private options: GeneralPurposeCardBodyOption[];
 
@@ -15,7 +16,8 @@ export class GeneralPurposeCarouselBody implements ResponseBody {
       const icon = option.icon || this.DEFAULT_ICON;
       const subtitle = option.subtitle || '';
       const newWindow = option.newWindow || false;
-      return { link, title, icon, subtitle, newWindow };
+      const orientation = option.orientation || this.DEFAULT_ORIENTATION;
+      return { link, title, icon, subtitle, newWindow, orientation };
     });
   }
 
