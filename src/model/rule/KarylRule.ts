@@ -15,6 +15,7 @@ export class KarylRule extends TextRule {
         subtitle: '망했어!',
         link: 'http://www.nyan.cat/',
         newWindow: false,
+        orientation: 'horizontal',
       },
       {
         icon: 'https://i.imgur.com/hcCIrevb.jpg',
@@ -22,6 +23,7 @@ export class KarylRule extends TextRule {
         subtitle: '이제 캬루가',
         link: 'http://www.nyan.cat/',
         newWindow: true,
+        orientation: 'vertical',
       },
       {
         icon: 'https://i.imgur.com/RVh9Zvlb.png',
