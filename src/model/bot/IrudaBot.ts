@@ -1,26 +1,26 @@
 import { Bot } from '../../framework/bot/Bot';
-import { CoronaRule } from '../rule/CoronaRule';
-import { HelpRule } from '../rule/HelpRule';
-import { NamuWikiRule } from '../rule/NamuWikiRule';
-import { RandomNumberRule } from '../rule/RandomNumberRule';
-import { SearchRule } from '../rule/SearchRule';
-import { ClockRule } from '../rule/ClockRule';
-import { GandelRule } from '../rule/GandelRule';
-import { PengRule } from '../rule/PengRule';
-import { PokemonRule } from '../rule/PokemonRule';
-import { TyphoonRule } from '../rule/TyphoonRule';
 import { BojRule } from '../rule/BojRule';
 import { CharacterSearchRule } from '../rule/CharacterSearchRule';
-import { PollenRule } from '../rule/PollenRule';
+import { ClockRule } from '../rule/ClockRule';
+import { CoronaRule } from '../rule/CoronaRule';
 import { DustRule } from '../rule/DustRule';
-import { LolScheduleRule } from '../rule/LolScheduleRule';
-import { MeguminRule } from '../rule/MeguminRule';
-import { LoLSchessSearchRule } from '../rule/LoLSchessSearchRule';
-import { YungRule } from '../rule/YungRule';
-import { WeatherRule } from '../rule/WeatherRule';
-import { MapleGgRule } from '../rule/MapleGgRule';
-import { TeraBurningRule } from '../rule/TeraBurningRule';
+import { GandelRule } from '../rule/GandelRule';
+import { HelpRule } from '../rule/HelpRule';
 import { KarylRule } from '../rule/KarylRule';
+import { LolScheduleRule } from '../rule/LolScheduleRule';
+import { LoLSchessSearchRule } from '../rule/LoLSchessSearchRule';
+import { MapleRule } from '../rule/MapleRule';
+import { MeguminRule } from '../rule/MeguminRule';
+import { NamuWikiRule } from '../rule/NamuWikiRule';
+import { PengRule } from '../rule/PengRule';
+import { PokemonRule } from '../rule/PokemonRule';
+import { PollenRule } from '../rule/PollenRule';
+import { RandomNumberRule } from '../rule/RandomNumberRule';
+import { SearchRule } from '../rule/SearchRule';
+import { TeraBurningRule } from '../rule/TeraBurningRule';
+import { TyphoonRule } from '../rule/TyphoonRule';
+import { WeatherRule } from '../rule/WeatherRule';
+import { YungRule } from '../rule/YungRule';
 
 export class IrudaBot extends Bot {
   public constructor() {
@@ -33,7 +33,7 @@ export class IrudaBot extends Bot {
       new ClockRule(),
       new GandelRule(),
       new MeguminRule(),
-      new MapleGgRule(),
+      new MapleRule(),
       new PengRule(),
       new YungRule(),
       new KarylRule(),
