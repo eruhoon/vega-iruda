@@ -31,6 +31,7 @@ export class MapleRule extends ArgumentRuleTemplate {
       title: user.name,
       icon: user.icon,
       subtitle: `${user.level} ${user.jobClass}`,
+      orientation: 'vertical',
     });
   }
 
@@ -71,7 +72,10 @@ export class MapleRule extends ArgumentRuleTemplate {
     const link = `${LINK_HOST}${$link.attr('href') || ''}`;
     const name = $link.text();
     const icon = $icon.attr('src') || '';
-    const jobClass = $user.find('dd').text();
+    const jobClass = $user
+      .find('dd')
+      .text()
+      .replace(/.*\/\s*/, '');
     const level = $user.find('td').eq(2).text();
     const server = $user.find('dt img').attr('src') || '';
     return {
