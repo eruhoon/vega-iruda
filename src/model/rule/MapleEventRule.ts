@@ -22,10 +22,10 @@ export class MapleEventRule extends TextRule {
         const $e = $(e);
         const $icon = $e.find('.content-thumbnail img');
         const $title = $e.find('span.content-title');
-        const $info = $e.find('.ui-list-info');
+        const $info = $e.find('.content-date');
         const icon = $icon.attr('src') || '';
         const title = $title.text();
-        const subtitle = $info.text().replace(/\n/g, '').trim();
+        const subtitle = $info.text().trim();
         return { icon, title, subtitle };
       });
     return new GeneralPurposeCarouselResponse(options);
