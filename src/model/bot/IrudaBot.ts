@@ -9,6 +9,7 @@ import { HelpRule } from '../rule/HelpRule';
 import { KarylRule } from '../rule/KarylRule';
 import { LolScheduleRule } from '../rule/LolScheduleRule';
 import { LoLSchessSearchRule } from '../rule/LoLSchessSearchRule';
+import { MapleEventRule } from '../rule/MapleEventRule';
 import { MapleRule } from '../rule/MapleRule';
 import { MeguminRule } from '../rule/MeguminRule';
 import { NamuWikiRule } from '../rule/NamuWikiRule';
@@ -34,6 +35,7 @@ export class IrudaBot extends Bot {
       new GandelRule(),
       new MeguminRule(),
       new MapleRule(),
+      new MapleEventRule(),
       new PengRule(),
       new YungRule(),
       new KarylRule(),
