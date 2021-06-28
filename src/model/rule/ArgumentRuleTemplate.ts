@@ -11,7 +11,7 @@ export abstract class ArgumentRuleTemplate extends TextRule {
   }
 
   public match(src: string): boolean {
-    return src.startsWith(`!${this.command}`);
+    return src.startsWith(`!${this.command} `);
   }
 
   public async makeMessage(src: string): Promise<Response> {
