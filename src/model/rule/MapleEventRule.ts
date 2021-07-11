@@ -10,7 +10,8 @@ export class MapleEventRule extends TextRule {
   }
 
   public async makeMessage(src: string): Promise<Response> {
-    const uri = 'https://m.maplestory.nexon.com/News/Event/Ongoing';
+    const host = 'https://m.maplestory.nexon.com';
+    const uri = `${host}/News/Event/Ongoing`;
     const { data: body } = await axios.get(uri);
     const $ = Cheerio.load(body, {
       normalizeWhitespace: true,
@@ -23,10 +24,11 @@ export class MapleEventRule extends TextRule {
         const $icon = $e.find('.content-thumbnail img');
         const $title = $e.find('span.content-title');
         const $info = $e.find('.content-date');
+        const link = `${host}${$e.attr('href') || ''}`;
         const icon = $icon.attr('src') || '';
         const title = $title.text();
         const subtitle = $info.text().trim();
-        return { icon, title, subtitle };
+        return { icon, title, subtitle, link };
       });
     return new GeneralPurposeCarouselResponse(options);
   }
