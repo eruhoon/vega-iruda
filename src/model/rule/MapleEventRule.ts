@@ -28,7 +28,7 @@ export class MapleEventRule extends TextRule {
         const icon = $icon.attr('src') || '';
         const title = $title.text();
         const subtitle = $info.text().trim();
-        return { icon, title, subtitle, link };
+        return { icon, title, subtitle, link, newWindow: true };
       });
     return new GeneralPurposeCarouselResponse(options);
   }
