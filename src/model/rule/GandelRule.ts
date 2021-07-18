@@ -21,18 +21,18 @@ export class GandelRule extends TargetDateRuleTemplate {
     const diff = alreadyLate ? tomorrowDiff : todayDiff;
 
     const diffKey = '간델의 다음 희망 퇴근시간까지';
-    const diffMessage = `${diffKey} : ${this.getDiffString(diff)}`;
-    const lateSuffix = this.getLateSuffix(alreadyLate);
+    const diffMessage = `${diffKey} : ${this.#getDiffString(diff)}`;
+    const lateSuffix = this.#getLateSuffix(alreadyLate);
     const message = diffMessage + lateSuffix;
     return new TextResponse(message);
   }
 
-  private getDiffString(diff: DiffTime): string {
+  #getDiffString(diff: DiffTime): string {
     const { hour, minute, second } = diff;
     return `${hour}시 ${minute}분 ${second}초!!`;
   }
 
-  private getLateSuffix(late: boolean): string {
+  #getLateSuffix(late: boolean): string {
     const lateSuffix = '.....오늘은 퇴근했을까?';
     return late ? lateSuffix : '';
   }

@@ -3,19 +3,19 @@ import { TextResponse } from '../../framework/response/TextReponse';
 import { TextRule } from '../../framework/rule/TextRule';
 
 export abstract class ArgumentRuleTemplate extends TextRule {
-  private command: string;
+  #command: string;
 
   public constructor(command: string) {
     super();
-    this.command = command;
+    this.#command = command;
   }
 
   public match(src: string): boolean {
-    return src.startsWith(`!${this.command} `);
+    return src.startsWith(`!${this.#command} `);
   }
 
   public async makeMessage(src: string): Promise<Response> {
-    const regex = new RegExp(`!${this.command} (.*)`);
+    const regex = new RegExp(`!${this.#command} (.*)`);
     const match = regex.exec(src);
     if (!match) {
       return new TextResponse('매칭 에러');

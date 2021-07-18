@@ -13,7 +13,7 @@ export class YungRule extends TargetDateRuleTemplate {
 
     const diff = this.getDiff(target);
 
-    const msg = this.getDiffTimeMessage(diff);
+    const msg = this.#getDiffTimeMessage(diff);
 
     const finalDiff = this.getDiff(finalTarget);
     const { day } = finalDiff;
@@ -25,7 +25,7 @@ export class YungRule extends TargetDateRuleTemplate {
     });
   }
 
-  private getDiffTimeMessage(diff: DiffTime): string {
+  #getDiffTimeMessage(diff: DiffTime): string {
     const { hour, minute, second } = diff;
     if (hour < 0) {
       return '퇴근했다!!!!';

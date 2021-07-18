@@ -15,14 +15,14 @@ export class LolScheduleRule extends TextRule {
     );
   }
 
-  private getTodayTimeStamp(): number {
+  #getTodayTimeStamp(): number {
     const date = new Date();
     const ONE_DAY = 24 * 60 * 60 * 1000;
     return date.getTime() - (date.getTime() % ONE_DAY);
   }
 
   public async makeMessage(src: string): Promise<Response> {
-    const found = await this.load();
+    const found = await this.#load();
     if (!found) {
       return new TextResponse(
         'https://lolesports.com/schedule?leagues=lck,worlds'
@@ -43,12 +43,12 @@ export class LolScheduleRule extends TextRule {
     );
   }
 
-  private async load(): Promise<Schedule> {
+  async #load(): Promise<Schedule> {
     const loaded = await new LolScheduleLoader().load();
-    const today = this.formatDate(new Date());
+    const today = this.#formatDate(new Date());
     const schedules: [string, string][] = loaded
       .filter((e) => {
-        return today === this.formatDate(new Date(e.startTime));
+        return today === this.#formatDate(new Date(e.startTime));
       })
       .map((e) => {
         const teams = e.match.teams.map((t) => t.code);
@@ -57,7 +57,7 @@ export class LolScheduleRule extends TextRule {
     return { date: today, schedules };
   }
 
-  private formatDate(dateObj: Date): string {
+  #formatDate(dateObj: Date): string {
     const format = (src: number) => (src < 10 ? `0${src}` : `${src}`);
     const year = dateObj.getFullYear();
     const month = dateObj.getMonth() + 1;

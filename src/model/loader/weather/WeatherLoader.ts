@@ -4,11 +4,10 @@ import * as iconv from 'iconv-lite';
 import { Loader } from '../Loader';
 
 export class WeatherLoader implements Loader<WeatherLoaderResult[]> {
-  private readonly URL =
-    'https://www.weather.go.kr/weather/main-now-weather.jsp';
+  readonly #URL = 'https://www.weather.go.kr/weather/main-now-weather.jsp';
 
   public async load(): Promise<WeatherLoaderResult[]> {
-    const { data: rawBody } = await axios.get(this.URL, {
+    const { data: rawBody } = await axios.get(this.#URL, {
       responseType: 'arraybuffer',
     });
     const data = iconv.decode(Buffer.from(rawBody), 'EUC-KR').toString();

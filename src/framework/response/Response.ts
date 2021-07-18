@@ -2,18 +2,18 @@ import { ResponseBody } from './body/ReponseBody';
 import { ResponseType } from './ResponseType';
 
 export abstract class Response {
-  private mType: ResponseType;
-  private mBody: ResponseBody;
+  #type: ResponseType;
+  #body: ResponseBody;
 
   public constructor(type: ResponseType, body: ResponseBody) {
-    this.mType = type;
-    this.mBody = body;
+    this.#type = type;
+    this.#body = body;
   }
 
   public serialize(): string {
     return JSON.stringify({
-      type: this.mType,
-      body: this.mBody.serialize(),
+      type: this.#type,
+      body: this.#body.serialize(),
     });
   }
 }

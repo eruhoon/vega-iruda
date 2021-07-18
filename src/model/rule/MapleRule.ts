@@ -12,20 +12,20 @@ export class MapleRule extends ArgumentRuleTemplate {
 
   protected async makeMessageWithArg(arg: string): Promise<Response> {
     const id = arg;
-    const mainUser = await this.loadUser(id, false);
+    const mainUser = await this.#loadUser(id, false);
     if (mainUser !== null) {
-      return this.createResponse(mainUser);
+      return this.#createResponse(mainUser);
     }
 
-    const rebootUser = await this.loadUser(id, true);
+    const rebootUser = await this.#loadUser(id, true);
     if (rebootUser !== null) {
-      return this.createResponse(rebootUser);
+      return this.#createResponse(rebootUser);
     }
 
     return new TextResponse('검색 실패');
   }
 
-  private createResponse(user: MapleUser): GeneralPurposeCardResponse {
+  #createResponse(user: MapleUser): GeneralPurposeCardResponse {
     return new GeneralPurposeCardResponse({
       link: user.link,
       title: user.name,
@@ -35,19 +35,16 @@ export class MapleRule extends ArgumentRuleTemplate {
     });
   }
 
-  private async loadUser(
-    id: string,
-    reboot: boolean
-  ): Promise<MapleUser | null> {
-    const body = await this.getBody(id, reboot);
+  async #loadUser(id: string, reboot: boolean): Promise<MapleUser | null> {
+    const body = await this.#getBody(id, reboot);
     if (!body) {
       return null;
     }
-    const user = this.parseContent(body);
+    const user = this.#parseContent(body);
     return user;
   }
 
-  private async getBody(id: string, reboot: boolean): Promise<string | null> {
+  async #getBody(id: string, reboot: boolean): Promise<string | null> {
     const HOST = 'https://maplestory.nexon.com';
     const DIR = 'Ranking/World/Total';
     const SERVER_REBOOT = 254;
@@ -60,7 +57,7 @@ export class MapleRule extends ArgumentRuleTemplate {
     return body;
   }
 
-  private parseContent(body: string): MapleUser | null {
+  #parseContent(body: string): MapleUser | null {
     const LINK_HOST = 'https://maplestory.nexon.com';
     const $ = Cheerio.load(body, { normalizeWhitespace: true });
     const $user = $('.search_com_chk');
