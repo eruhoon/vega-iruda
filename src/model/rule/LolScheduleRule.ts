@@ -27,11 +27,10 @@ export class LolScheduleRule extends TextRule {
         const league = s[0];
         const home = s[1];
         const away = s[2];
-        const subtitle = `${home} vs ${away}`;
         return {
           icon: this.#getIcon(league),
           title: this.#getName(league),
-          subtitle,
+          subtitle: `${home} vs ${away}`,
           link: LOL_SCHEDULE_URL,
         };
       })
