@@ -5,7 +5,7 @@ import { TextRule } from '../../framework/rule/TextRule';
 import { LolScheduleLoader } from '../loader/lol/schedule/LolScheduleLoader';
 
 export class LolScheduleRule extends TextRule {
-  public match(src: string): boolean {
+  match(src: string): boolean {
     return (
       src === '!롤일정' ||
       src === '!lck' ||
@@ -21,7 +21,7 @@ export class LolScheduleRule extends TextRule {
     return date.getTime() - (date.getTime() % ONE_DAY);
   }
 
-  public async makeMessage(src: string): Promise<Response> {
+  async makeMessage(src: string): Promise<Response> {
     const found = await this.#load();
     if (!found) {
       return new TextResponse(

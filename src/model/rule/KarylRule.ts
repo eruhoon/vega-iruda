@@ -3,11 +3,11 @@ import { Response } from '../../framework/response/Response';
 import { TextRule } from '../../framework/rule/TextRule';
 
 export class KarylRule extends TextRule {
-  public match(src: string): boolean {
+  match(src: string): boolean {
     return src === '!캬루';
   }
 
-  public async makeMessage(src: string): Promise<Response> {
+  async makeMessage(src: string): Promise<Response> {
     return new GeneralPurposeCarouselResponse([
       {
         icon: 'https://i.imgur.com/wyfTUojb.png',

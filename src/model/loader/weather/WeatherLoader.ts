@@ -6,7 +6,7 @@ import { Loader } from '../Loader';
 export class WeatherLoader implements Loader<WeatherLoaderResult[]> {
   readonly #URL = 'https://www.weather.go.kr/weather/main-now-weather.jsp';
 
-  public async load(): Promise<WeatherLoaderResult[]> {
+  async load(): Promise<WeatherLoaderResult[]> {
     const { data: rawBody } = await axios.get(this.#URL, {
       responseType: 'arraybuffer',
     });

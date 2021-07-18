@@ -6,7 +6,7 @@ import { TextResponse } from '../../framework/response/TextReponse';
 import { ArgumentRuleTemplate } from './ArgumentRuleTemplate';
 
 export class MapleRule extends ArgumentRuleTemplate {
-  public constructor() {
+  constructor() {
     super('메이플');
   }
 

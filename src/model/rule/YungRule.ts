@@ -3,11 +3,11 @@ import { Response } from '../../framework/response/Response';
 import { DiffTime, TargetDateRuleTemplate } from './TargetDateRuleTemplate';
 
 export class YungRule extends TargetDateRuleTemplate {
-  public match(src: string): boolean {
+  match(src: string): boolean {
     return src === '!융' || src === '!dbd';
   }
 
-  public async makeMessage(src: string): Promise<Response> {
+  async makeMessage(src: string): Promise<Response> {
     const finalTarget = this.createTargetDate(2021, 10, 2).getTime();
     const target = this.createTargetTime({ hour: 18 }).getTime();
 

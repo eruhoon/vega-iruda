@@ -3,11 +3,11 @@ import { TextResponse } from '../../framework/response/TextReponse';
 import { DiffTime, TargetDateRuleTemplate } from './TargetDateRuleTemplate';
 
 export class GandelRule extends TargetDateRuleTemplate {
-  public match(src: string): boolean {
+  match(src: string): boolean {
     return src == '!간' || src == '!간델';
   }
 
-  public async makeMessage(src: string): Promise<Response> {
+  async makeMessage(src: string): Promise<Response> {
     const curDate = new Date();
     const target = this.createTargetTime({
       hour: 19,

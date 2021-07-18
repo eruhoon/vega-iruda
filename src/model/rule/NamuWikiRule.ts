@@ -3,7 +3,7 @@ import { TextResponse } from '../../framework/response/TextReponse';
 import { ArgumentRuleTemplate } from './ArgumentRuleTemplate';
 
 export class NamuWikiRule extends ArgumentRuleTemplate {
-  public constructor() {
+  constructor() {
     super('꺼라');
   }
 

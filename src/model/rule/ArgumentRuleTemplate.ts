@@ -5,16 +5,16 @@ import { TextRule } from '../../framework/rule/TextRule';
 export abstract class ArgumentRuleTemplate extends TextRule {
   #command: string;
 
-  public constructor(command: string) {
+  constructor(command: string) {
     super();
     this.#command = command;
   }
 
-  public match(src: string): boolean {
+  match(src: string): boolean {
     return src.startsWith(`!${this.#command} `);
   }
 
-  public async makeMessage(src: string): Promise<Response> {
+  async makeMessage(src: string): Promise<Response> {
     const regex = new RegExp(`!${this.#command} (.*)`);
     const match = regex.exec(src);
     if (!match) {

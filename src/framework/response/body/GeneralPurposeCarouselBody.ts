@@ -8,7 +8,7 @@ export class GeneralPurposeCarouselBody implements ResponseBody {
 
   #options: GeneralPurposeCardBodyOption[];
 
-  public constructor(options: GeneralPurposeCardBodyOption[]) {
+  constructor(options: GeneralPurposeCardBodyOption[]) {
     this.#options = options.map((option) => {
       const link = option.link || '';
       const title = option.title || this.#DEFAULT_TITLE;
@@ -20,7 +20,7 @@ export class GeneralPurposeCarouselBody implements ResponseBody {
     });
   }
 
-  public serialize(): string {
+  serialize(): string {
     return JSON.stringify(this.#options);
   }
 }

@@ -2,7 +2,7 @@ import express from 'express';
 import { BotHandler } from '../framework/bot/BotHandler';
 
 export class ExpressReceiver extends BotHandler {
-  public run(): void {
+  run(): void {
     const app = express();
     const port = 9050;
 

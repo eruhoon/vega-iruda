@@ -12,7 +12,7 @@ export class GeneralPurposeCardBody implements ResponseBody {
   #newWindow: boolean;
   #orientation: OrienationOption;
 
-  public constructor(option: GeneralPurposeCardBodyOption) {
+  constructor(option: GeneralPurposeCardBodyOption) {
     this.#link = option.link || '';
     this.#title = option.title || this.#DEFAULT_TITLE;
     this.#icon = option.icon || this.#DEFAULT_ICON;
@@ -21,7 +21,7 @@ export class GeneralPurposeCardBody implements ResponseBody {
     this.#orientation = option.orientation || this.#DEFAULT_ORIENTATION;
   }
 
-  public serialize(): string {
+  serialize(): string {
     return JSON.stringify({
       link: this.#link,
       icon: this.#icon,

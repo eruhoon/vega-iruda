@@ -5,11 +5,11 @@ import { Response } from '../../framework/response/Response';
 import { TextRule } from '../../framework/rule/TextRule';
 
 export class MapleEventRule extends TextRule {
-  public match(src: string): boolean {
+  match(src: string): boolean {
     return src === '!메이플이벤트';
   }
 
-  public async makeMessage(src: string): Promise<Response> {
+  async makeMessage(src: string): Promise<Response> {
     const host = 'https://m.maplestory.nexon.com';
     const uri = `${host}/News/Event/Ongoing`;
     const { data: body } = await axios.get(uri);

@@ -3,7 +3,7 @@ import { TextResponse } from '../../framework/response/TextReponse';
 import { TextRule } from '../../framework/rule/TextRule';
 
 export class BojRule extends TextRule {
-  public match(src: string): boolean {
+  match(src: string): boolean {
     return (
       src.startsWith('!백준') ||
       src.startsWith('!문제') ||
@@ -11,7 +11,7 @@ export class BojRule extends TextRule {
     );
   }
 
-  public async makeMessage(src: string): Promise<Response> {
+  async makeMessage(src: string): Promise<Response> {
     const word = src.indexOf(' ') != -1 ? src.substring(4) : 'p/rs';
     return new TextResponse(`http://boj.kr/${word}`);
   }

@@ -3,11 +3,11 @@ import { TextResponse } from '../../framework/response/TextReponse';
 import { TextRule } from '../../framework/rule/TextRule';
 
 export class PengRule extends TextRule {
-  public match(src: string): boolean {
+  match(src: string): boolean {
     return src === '!펭' || src === '!vpd';
   }
 
-  public async makeMessage(src: string): Promise<Response> {
+  async makeMessage(src: string): Promise<Response> {
     let msg = '';
     const nowDate = new Date().getTime();
     const targetDate = new Date(2021, 3, 18).getTime();

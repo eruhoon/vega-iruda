@@ -24,7 +24,7 @@ import { WeatherRule } from '../rule/WeatherRule';
 import { YungRule } from '../rule/YungRule';
 
 export class IrudaBot extends Bot {
-  public constructor() {
+  constructor() {
     super([
       new HelpRule(),
       new NamuWikiRule(),

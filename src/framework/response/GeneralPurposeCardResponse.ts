@@ -6,7 +6,7 @@ import { Response } from './Response';
 import { ResponseType } from './ResponseType';
 
 export class GeneralPurposeCardResponse extends Response {
-  public constructor(option: GeneralPurposeCardBodyOption) {
+  constructor(option: GeneralPurposeCardBodyOption) {
     super(
       ResponseType.GENERAL_PURPOSE_CARD,
       new GeneralPurposeCardBody(option)
