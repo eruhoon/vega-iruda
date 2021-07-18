@@ -15,15 +15,9 @@ export class LolScheduleRule extends TextRule {
     );
   }
 
-  #getTodayTimeStamp(): number {
-    const date = new Date();
-    const ONE_DAY = 24 * 60 * 60 * 1000;
-    return date.getTime() - (date.getTime() % ONE_DAY);
-  }
-
   async makeMessage(src: string): Promise<Response> {
     const found = await this.#load();
-    if (!found) {
+    if (!found || found.schedules.length === 0) {
       return new TextResponse(
         'https://lolesports.com/schedule?leagues=lck,worlds'
       );
@@ -65,11 +59,6 @@ export class LolScheduleRule extends TextRule {
     return `${year}-${format(month)}-${format(date)}`;
   }
 }
-
-type LolTeam = {
-  icon: string;
-  name: string;
-};
 
 type Schedule = {
   date: string;
