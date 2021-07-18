@@ -4,6 +4,8 @@ import { TextResponse } from '../../framework/response/TextReponse';
 import { TextRule } from '../../framework/rule/TextRule';
 import { LolScheduleLoader } from '../loader/lol/schedule/LolScheduleLoader';
 
+const LOL_SCHEDULE_URL = 'https://lolesports.com/schedule?leagues=lck,worlds';
+
 export class LolScheduleRule extends TextRule {
   match(src: string): boolean {
     return (
@@ -18,20 +20,19 @@ export class LolScheduleRule extends TextRule {
   async makeMessage(src: string): Promise<Response> {
     const found = await this.#load();
     if (!found || found.schedules.length === 0) {
-      return new TextResponse(
-        'https://lolesports.com/schedule?leagues=lck,worlds'
-      );
+      return new TextResponse(LOL_SCHEDULE_URL);
     }
     return new GeneralPurposeCarouselResponse(
       found.schedules.map((s) => {
-        const home = s[0];
-        const away = s[1];
+        const league = s[0];
+        const home = s[1];
+        const away = s[2];
         const subtitle = `${home} vs ${away}`;
         return {
-          icon: 'https://am-a.akamaihd.net/image?resize=60:&f=http%3A%2F%2Fstatic.lolesports.com%2Fleagues%2Flck-color-on-black.png',
-          title: 'LCK',
+          icon: this.#getIcon(league),
+          title: this.#getName(league),
           subtitle,
-          link: 'https://lolesports.com/schedule?leagues=lck,worlds',
+          link: LOL_SCHEDULE_URL,
         };
       })
     );
@@ -40,13 +41,16 @@ export class LolScheduleRule extends TextRule {
   async #load(): Promise<Schedule> {
     const loaded = await new LolScheduleLoader().load();
     const today = this.#formatDate(new Date());
-    const schedules: [string, string][] = loaded
+    const schedules: [League, string, string][] = loaded
       .filter((e) => {
-        return today === this.#formatDate(new Date(e.startTime));
+        const isLck = e.league.slug === 'lck' || 'lck_challengers_league';
+        const isToday = today === this.#formatDate(new Date(e.startTime));
+        return isLck && isToday;
       })
       .map((e) => {
+        const league = e.league.slug === 'lck' ? 'lck' : 'lck cl';
         const teams = e.match.teams.map((t) => t.code);
-        return [teams[0], teams[1]];
+        return [league, teams[0], teams[1]];
       });
     return { date: today, schedules };
   }
@@ -58,9 +62,35 @@ export class LolScheduleRule extends TextRule {
     const date = dateObj.getDate();
     return `${year}-${format(month)}-${format(date)}`;
   }
+
+  #getIcon(league: League): string {
+    switch (league) {
+      case 'lck':
+        return 'https://am-a.akamaihd.net/image?resize=60:&f=http%3A%2F%2Fstatic.lolesports.com%2Fleagues%2Flck-color-on-black.png';
+      case 'lck cl':
+        return 'https://am-a.akamaihd.net/image?resize=120:&f=http%3A%2F%2Fstatic.lolesports.com%2Fleagues%2Flck-cl-white.png';
+      default:
+        console.log('invalid league');
+        return '';
+    }
+  }
+
+  #getName(league: League): string {
+    switch (league) {
+      case 'lck':
+        return 'LCK';
+      case 'lck cl':
+        return 'LCK CL';
+      default:
+        console.log('invalid league');
+        return '';
+    }
+  }
 }
 
 type Schedule = {
   date: string;
-  schedules: [string, string][];
+  schedules: [League, string, string][];
 };
+
+type League = 'lck' | 'lck cl';
