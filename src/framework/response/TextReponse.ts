@@ -4,6 +4,6 @@ import { ResponseType } from './ResponseType';
 
 export class TextResponse extends Response {
   constructor(text: string) {
-    super(ResponseType.TEXT, new TextBody(text));
+    super('text', new TextBody(text));
   }
 }

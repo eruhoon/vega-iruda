@@ -1,5 +1,4 @@
-export const enum ResponseType {
-  TEXT = 'text',
-  GENERAL_PURPOSE_CARD = 'general-purpose-card',
-  GENERAL_PURPOSE_CAROUSEL = 'general-purpose-carousel',
-}
+export type ResponseType =
+  | 'text'
+  | 'general-purpose-card'
+  | 'general-purpose-carousel';

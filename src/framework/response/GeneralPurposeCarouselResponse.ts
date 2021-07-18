@@ -1,13 +1,9 @@
 import { GeneralPurposeCardBodyOption } from './body/GeneralPurposeCardBody';
 import { GeneralPurposeCarouselBody } from './body/GeneralPurposeCarouselBody';
 import { Response } from './Response';
-import { ResponseType } from './ResponseType';
 
 export class GeneralPurposeCarouselResponse extends Response {
   constructor(options: GeneralPurposeCardBodyOption[]) {
-    super(
-      ResponseType.GENERAL_PURPOSE_CAROUSEL,
-      new GeneralPurposeCarouselBody(options)
-    );
+    super('general-purpose-carousel', new GeneralPurposeCarouselBody(options));
   }
 }
