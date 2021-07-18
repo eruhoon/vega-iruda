@@ -2,11 +2,12 @@ import axios from 'axios';
 
 export class LolScheduleLoader {
   async load(): Promise<Event[]> {
-    const url =
-      'https://esports-api.lolesports.com/persisted/gw/getSchedule?hl=ko-KR&leagueId=98767991310872058%2C98767991335774713';
-    const { data } = await axios.get(url, {
-      headers: { 'x-api-key': '0TvQnueqKa5mxJntVWt0w4LpLfEkrV1Ta8rQBb9Z' },
-    });
+    const host = 'https://esports-api.lolesports.com/persisted/gw/getSchedule';
+    const leagueId = '98767991310872058%2C98767991335774713';
+    const query = `hl=ko-KR&leagueId=${leagueId}`;
+    const url = `${host}?${query}`;
+    const headers = { 'x-api-key': '0TvQnueqKa5mxJntVWt0w4LpLfEkrV1Ta8rQBb9Z' };
+    const { data } = await axios.get(url, { headers });
     const events: Event[] = data.data.schedule.events || [];
     return events;
   }
