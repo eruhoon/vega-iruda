@@ -8,10 +8,21 @@ export class RandomNumberRule extends TextRule {
   }
 
   async makeMessage(src: string): Promise<Response> {
+    const maxNumber = this.#parseMaxNumber(src);
+    const generated = this.#generateNumber(maxNumber);
+    return new TextResponse(`${generated}`);
+  }
+
+  #parseMaxNumber(src: string): number {
     const match = /!랜덤 (.*)/.exec(src);
-    let number = match ? parseInt(match[1]) : NaN;
-    if (!isNaN(number) && (number > 31415 || number < 2)) number = NaN;
-    const word = !isNaN(number) ? Math.floor(Math.random() * number) + 1 : -1;
-    return new TextResponse(`${word}`);
+    const maxNumber = match ? parseInt(match[1]) : NaN;
+    return maxNumber;
+  }
+
+  #generateNumber(max: number): number {
+    if (isNaN(max) || max > 31415 || max < 2) {
+      return -1;
+    }
+    return Math.floor(Math.random() * max) + 1;
   }
 }
