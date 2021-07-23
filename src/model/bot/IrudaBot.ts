@@ -20,6 +20,7 @@ import { RandomNumberRule } from '../rule/RandomNumberRule';
 import { SearchRule } from '../rule/SearchRule';
 import { TeraBurningRule } from '../rule/TeraBurningRule';
 import { TyphoonRule } from '../rule/TyphoonRule';
+import { VaccineRule } from '../rule/VaccineRule';
 import { WeatherRule } from '../rule/WeatherRule';
 import { YungRule } from '../rule/YungRule';
 
@@ -47,6 +48,7 @@ export class IrudaBot extends Bot {
       new DustRule(),
       new LolScheduleRule(),
       new LoLSchessSearchRule(),
+      new VaccineRule(),
       new WeatherRule(),
       new TeraBurningRule(),
     ]);
