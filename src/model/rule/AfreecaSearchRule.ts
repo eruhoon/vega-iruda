@@ -15,7 +15,7 @@ export class AfreecaSearchRule extends ArgumentRuleTemplate {
     const query = arg;
     const results = await this.#loader.getResults(query);
     const options = results.map((result) => {
-      const link = `//play.afreecatv.com/${result.id}/embed"`;
+      const link = `//play.afreecatv.com/${result.id}/embed`;
       return {
         icon: result.broadIcon,
         link,
