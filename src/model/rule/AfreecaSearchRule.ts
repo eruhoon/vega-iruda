@@ -1,3 +1,4 @@
+import { GeneralPurposeCardBodyOption } from '../../framework/response/body/GeneralPurposeCardBody';
 import { GeneralPurposeCarouselResponse } from '../../framework/response/GeneralPurposeCarouselResponse';
 import { Response } from '../../framework/response/Response';
 import { AfreecaSearchLoader } from '../loader/afreeca/AfreecaSearchLoader';
@@ -14,14 +15,14 @@ export class AfreecaSearchRule extends ArgumentRuleTemplate {
     console.log(arg);
     const query = arg;
     const results = await this.#loader.getResults(query);
-    const options = results.map((result) => {
+    const options = results.map<GeneralPurposeCardBodyOption>((result) => {
       const link = `//play.afreecatv.com/${result.id}/embed`;
       return {
         icon: result.broadIcon,
         link,
-        newWindow: false,
         title: result.stationName,
         subtitle: result.broadTitle,
+        showType: 'content-viewer',
       };
     });
     return new GeneralPurposeCarouselResponse(options);
