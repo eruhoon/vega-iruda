@@ -14,7 +14,7 @@ export class KarylRule extends TextRule {
         title: '니들 사이트는',
         subtitle: '망했어!',
         link: 'http://www.nyan.cat/',
-        newWindow: false,
+        showType: 'in-app-browser',
         orientation: 'horizontal',
       },
       {
@@ -22,7 +22,7 @@ export class KarylRule extends TextRule {
         title: '마캐는',
         subtitle: '이제 캬루가',
         link: 'http://www.nyan.cat/',
-        newWindow: true,
+        showType: 'content-viewer',
         orientation: 'vertical',
       },
       {
@@ -30,7 +30,7 @@ export class KarylRule extends TextRule {
         title: '지배',
         subtitle: '한다!!!!',
         link: 'http://www.nyan.cat/',
-        newWindow: true,
+        showType: 'new-window',
       },
     ]);
   }

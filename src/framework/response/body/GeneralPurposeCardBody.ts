@@ -9,7 +9,7 @@ export class GeneralPurposeCardBody implements ResponseBody {
   #icon: string;
   #title: string;
   #subtitle: string;
-  #newWindow: boolean;
+  #showType: ShowTypeOption;
   #orientation: OrienationOption;
 
   constructor(option: GeneralPurposeCardBodyOption) {
@@ -17,7 +17,7 @@ export class GeneralPurposeCardBody implements ResponseBody {
     this.#title = option.title || this.#DEFAULT_TITLE;
     this.#icon = option.icon || this.#DEFAULT_ICON;
     this.#subtitle = option.subtitle || '';
-    this.#newWindow = option.newWindow || false;
+    this.#showType = option.showType || 'in-app-browser';
     this.#orientation = option.orientation || this.#DEFAULT_ORIENTATION;
   }
 
@@ -27,7 +27,7 @@ export class GeneralPurposeCardBody implements ResponseBody {
       icon: this.#icon,
       title: this.#title,
       subtitle: this.#subtitle,
-      newWindow: this.#newWindow,
+      showType: this.#showType,
       orientation: this.#orientation,
     });
   }
@@ -38,8 +38,10 @@ export type GeneralPurposeCardBodyOption = {
   title?: string;
   icon?: string;
   subtitle?: string;
-  newWindow?: boolean;
+  showType?: ShowTypeOption;
   orientation?: OrienationOption;
 };
 
 export type OrienationOption = 'horizontal' | 'vertical';
+
+export type ShowTypeOption = 'content-viewer' | 'new-window' | 'in-app-browser';
