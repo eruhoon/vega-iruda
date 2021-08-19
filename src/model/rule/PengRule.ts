@@ -22,7 +22,7 @@ export class PengRule extends TargetDateRuleTemplate {
     return new GeneralPurposeCardResponse({
       title: msg,
       subtitle: `수료까지 .....${day + 1}일`,
-      icon: 'https://i.imgur.com/gRTDNpw.jpg',
+      icon: 'https://i.imgur.com/3tO0j6f.jpg',
     });
 
   }
@@ -44,6 +44,6 @@ export class PengRule extends TargetDateRuleTemplate {
       second > 0 ? `${second}초` : '',
       hour === 0 ? '!!' : '...',
     ].join(' ');
-    return `펭 학원에서 탈출까지 ${timeStr}`;
+    return `펭 탈출까지 ${timeStr}`;
   }
 }
