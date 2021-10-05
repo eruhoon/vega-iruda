@@ -2,14 +2,32 @@ import axios from 'axios';
 import Cheerio from 'cheerio';
 import { GeneralPurposeCarouselResponse } from '../../framework/response/GeneralPurposeCarouselResponse';
 import { Response } from '../../framework/response/Response';
+import { TextResponse } from '../../framework/response/TextReponse';
 import { TextRule } from '../../framework/rule/TextRule';
 
 export class MapleEventRule extends TextRule {
   match(src: string): boolean {
-    return src === '!메이플이벤트';
+    return /!메이플이벤트( (.*))?/.test(src);
   }
 
   async makeMessage(src: string): Promise<Response> {
+    const match = /!메이플이벤트( (.*))?/.exec(src);
+    const arg = match && match[2] ? match[2] : null;
+    switch (arg) {
+      case '달력':
+        return await this.makeCalendar();
+      default:
+        return await this.makeCarousel();
+    }
+  }
+
+  async makeCalendar() {
+    return new TextResponse(
+      'https://cs.nexon.com/helpboard/popuphelpview/22065'
+    );
+  }
+
+  async makeCarousel() {
     const host = 'https://m.maplestory.nexon.com';
     const uri = `${host}/News/Event/Ongoing`;
     const { data: body } = await axios.get(uri);
