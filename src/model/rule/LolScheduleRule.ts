@@ -42,16 +42,28 @@ export class LolScheduleRule extends TextRule {
     const today = this.#formatDate(new Date());
     const schedules: [League, string, string][] = loaded
       .filter((e) => {
-        const isLck = e.league.slug === 'lck' || 'lck_challengers_league';
+        const isLck =
+          e.league.slug === 'lck' || 'lck_challengers_league' || 'worlds';
         const isToday = today === this.#formatDate(new Date(e.startTime));
         return isLck && isToday;
       })
       .map((e) => {
-        const league = e.league.slug === 'lck' ? 'lck' : 'lck cl';
+        const league = this.#getLeagueName(e.league.slug);
         const teams = e.match.teams.map((t) => t.code);
         return [league, teams[0], teams[1]];
       });
     return { date: today, schedules };
+  }
+
+  #getLeagueName(slug: string) {
+    switch (slug) {
+      case 'lck':
+      case 'worlds':
+      case 'lck cl':
+        return slug;
+      default:
+        return 'etc';
+    }
   }
 
   #formatDate(dateObj: Date): string {
@@ -80,6 +92,8 @@ export class LolScheduleRule extends TextRule {
         return 'LCK';
       case 'lck cl':
         return 'LCK CL';
+      case 'worlds':
+        return 'Worlds';
       default:
         console.log('invalid league');
         return '';
@@ -92,4 +106,4 @@ type Schedule = {
   schedules: [League, string, string][];
 };
 
-type League = 'lck' | 'lck cl';
+type League = 'lck' | 'lck cl' | 'worlds' | 'etc';

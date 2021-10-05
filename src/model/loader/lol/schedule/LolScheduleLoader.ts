@@ -3,7 +3,7 @@ import axios from 'axios';
 export class LolScheduleLoader {
   async load(): Promise<Event[]> {
     const host = 'https://esports-api.lolesports.com/persisted/gw/getSchedule';
-    const leagueId = '98767991310872058%2C98767991335774713';
+    const leagueId = '98767991310872058%2C98767975604431411';
     const query = `hl=ko-KR&leagueId=${leagueId}`;
     const url = `${host}?${query}`;
     const headers = { 'x-api-key': '0TvQnueqKa5mxJntVWt0w4LpLfEkrV1Ta8rQBb9Z' };
