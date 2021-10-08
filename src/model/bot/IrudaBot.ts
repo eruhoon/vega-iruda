@@ -7,6 +7,7 @@ import { CoronaRule } from '../rule/CoronaRule';
 import { DustRule } from '../rule/DustRule';
 import { GandelRule } from '../rule/GandelRule';
 import { HelpRule } from '../rule/HelpRule';
+import { HoenyChampRule } from '../rule/HoneyChampRule';
 import { KarylRule } from '../rule/KarylRule';
 import { LolScheduleRule } from '../rule/LolScheduleRule';
 import { LoLSchessSearchRule } from '../rule/LoLSchessSearchRule';
@@ -53,6 +54,7 @@ export class IrudaBot extends Bot {
       new VaccineRule(),
       new WeatherRule(),
       new TeraBurningRule(),
+      new HoenyChampRule(),
     ]);
   }
 }
