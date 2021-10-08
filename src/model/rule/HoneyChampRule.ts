@@ -6,21 +6,15 @@ import { TextRule } from '../../framework/rule/TextRule';
 
 export class HoenyChampRule extends TextRule {
   match(src: string): boolean {
-    return [
-      '탑',
-      '탑솔',
-      '미드',
-      '정글',
-      '원딜',
-      '바텀',
-      '서폿',
-      '서포터',
-    ].some((pos) => `!꿀챔 ${pos}` === src);
+    return (
+      ['탑', '탑솔', '미드', '정글', '원딜', '바텀', '서폿', '서포터'].some(
+        (pos) => `!꿀챔 ${pos}` === src
+      ) || src === '!꿀챔'
+    );
   }
 
   async makeMessage(src: string): Promise<Response> {
     const match = /!꿀챔( (.*))?/.exec(src);
-    console.log(match);
     if (!match) {
       return new TextResponse('에러');
     }
