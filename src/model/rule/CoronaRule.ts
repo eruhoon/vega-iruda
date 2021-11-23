@@ -23,7 +23,7 @@ export class CoronaRule extends TextRule {
       normalizeWhitespace: true,
     });
     const date = $('h5.s_title_in3 .t_date').eq(0).text();
-    const rawTotal = $('.caseTable .inner_value').eq(0).text();
+    const rawTotal = $('.caseTable .ca_body .ca_value').eq(6).text();
 
     return new GeneralPurposeCardResponse({
       link: 'https://corona-live.com/',
