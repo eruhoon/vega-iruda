@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { ShowTypeOption } from '../../framework/response/body/GeneralPurposeCardBody';
 import { GeneralPurposeCarouselResponse } from '../../framework/response/GeneralPurposeCarouselResponse';
 import { Response } from '../../framework/response/Response';
 import { TextResponse } from '../../framework/response/TextReponse';
@@ -46,11 +47,13 @@ export class HoenyChampRule extends TextRule {
     return new GeneralPurposeCarouselResponse(
       filtered
         .map((e) => {
+          const showType: ShowTypeOption = 'new-window';
           return {
             icon: `https://s3.lol.ps/file/lol-ps/static/img/champion-portrait/${e.champion__data_key}.webp`,
             link: `https://lol.ps/champ/${e.champion__data_key}/statistics`,
             title: `${e.champion__name}(${e.lane__lane_name_kr})`,
             subtitle: `승률: ${e.win_rate}%`,
+            showType,
           };
         })
         .filter((_, i) => i < 10)
