@@ -14,6 +14,7 @@ import { LoLSchessSearchRule } from '../rule/LoLSchessSearchRule';
 import { MapleEventRule } from '../rule/MapleEventRule';
 import { MapleRule } from '../rule/MapleRule';
 import { MeguminRule } from '../rule/MeguminRule';
+import { MovieRule } from '../rule/MovieRule';
 import { NamuWikiRule } from '../rule/NamuWikiRule';
 import { PengRule } from '../rule/PengRule';
 import { PokemonRule } from '../rule/PokemonRule';
@@ -40,6 +41,7 @@ export class IrudaBot extends Bot {
       new MeguminRule(),
       new MapleRule(),
       new MapleEventRule(),
+      new MovieRule(),
       new PengRule(),
       new YungRule(),
       new KarylRule(),
