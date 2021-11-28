@@ -22,7 +22,7 @@ export class MovieRule extends ArgumentRuleTemplate {
         icon: movie.image,
         subtitle: movie.pubDate,
         orientation: 'vertical',
-        showType: 'in-app-browser',
+        showType: 'new-window',
       });
     }
   }
