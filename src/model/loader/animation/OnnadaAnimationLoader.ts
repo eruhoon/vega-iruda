@@ -25,8 +25,8 @@ export class OnnadaAnimationLoader {
         title: e.title,
         link: e.uri,
         thumbnail: e.thumb,
-        media: '',
-        genre: '',
+        media: e.type,
+        genre: e.category,
         date: e.date,
       };
     });
@@ -57,5 +57,6 @@ type OnanadaAnimationInfo = {
   thumb: string;
   category: string;
   title: string;
+  type: string;
   date: string;
 };
