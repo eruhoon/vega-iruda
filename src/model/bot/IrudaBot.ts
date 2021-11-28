@@ -1,5 +1,6 @@
 import { Bot } from '../../framework/bot/Bot';
 import { AfreecaSearchRule } from '../rule/AfreecaSearchRule';
+import { AnimationRule } from '../rule/AnimationRule';
 import { BojRule } from '../rule/BojRule';
 import { CharacterSearchRule } from '../rule/CharacterSearchRule';
 import { ClockRule } from '../rule/ClockRule';
@@ -31,6 +32,7 @@ export class IrudaBot extends Bot {
   constructor() {
     super([
       new AfreecaSearchRule(),
+      new AnimationRule(),
       new HelpRule(),
       new NamuWikiRule(),
       new SearchRule(),
