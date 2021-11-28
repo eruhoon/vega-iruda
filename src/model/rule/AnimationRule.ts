@@ -20,7 +20,7 @@ export class AnimationRule extends ArgumentRuleTemplate {
         link: animation.link,
         title: animation.title,
         icon: animation.thumbnail,
-        subtitle: `${animation.genre} ${animation.media}`,
+        subtitle: `${animation.genre} / ${animation.media}`,
         orientation: 'vertical',
         showType: 'in-app-browser',
       });
