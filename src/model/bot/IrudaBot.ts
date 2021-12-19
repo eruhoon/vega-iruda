@@ -23,6 +23,7 @@ import { PollenRule } from '../rule/PollenRule';
 import { RandomNumberRule } from '../rule/RandomNumberRule';
 import { SearchRule } from '../rule/SearchRule';
 import { TeraBurningRule } from '../rule/TeraBurningRule';
+import { TwitchRule } from '../rule/TwitchRule';
 import { TyphoonRule } from '../rule/TyphoonRule';
 import { VaccineRule } from '../rule/VaccineRule';
 import { WeatherRule } from '../rule/WeatherRule';
@@ -49,6 +50,7 @@ export class IrudaBot extends Bot {
       new KarylRule(),
       new PokemonRule(),
       new TyphoonRule(),
+      new TwitchRule(),
       new BojRule(),
       new CharacterSearchRule(),
       new PollenRule(),
