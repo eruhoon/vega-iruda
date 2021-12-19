@@ -1,47 +1,31 @@
+import axios from 'axios';
+
 export class DataDragonRealms {
-  load(): Result {
-    return {
-      n: {
-        item: '11.24.1',
-        rune: '7.23.1',
-        mastery: '7.23.1',
-        summoner: '11.24.1',
-        champion: '11.24.1',
-        profileicon: '11.24.1',
-        map: '11.24.1',
-        language: '11.24.1',
-        sticker: '11.24.1',
-      },
-      v: '11.24.1',
-      l: 'ko_KR',
-      cdn: 'https://ddragon.leagueoflegends.com/cdn',
-      dd: '11.24.1',
-      lg: '11.24.1',
-      css: '11.24.1',
-      profileiconmax: 28,
-      store: null,
-    };
+  async load(): Promise<Result> {
+    const uri = 'https://ddragon.leagueoflegends.com/realms/kr.json';
+    const { data } = await axios.get(uri);
+    return data;
   }
 }
 
 type Result = {
   n: {
-    item: '11.24.1';
-    rune: '7.23.1';
-    mastery: '7.23.1';
-    summoner: '11.24.1';
-    champion: '11.24.1';
-    profileicon: '11.24.1';
-    map: '11.24.1';
-    language: '11.24.1';
-    sticker: '11.24.1';
+    item: string;
+    rune: string;
+    mastery: string;
+    summoner: string;
+    champion: string;
+    profileicon: string;
+    map: string;
+    language: string;
+    sticker: string;
   };
-  v: '11.24.1';
-  l: 'ko_KR';
-  cdn: 'https://ddragon.leagueoflegends.com/cdn';
-  dd: '11.24.1';
-  lg: '11.24.1';
-  css: '11.24.1';
-  profileiconmax: 28;
-  store: null;
+  v: string;
+  l: string;
+  cdn: string;
+  dd: string;
+  lg: string;
+  css: string;
+  profileiconmax: number;
+  store: any;
 };

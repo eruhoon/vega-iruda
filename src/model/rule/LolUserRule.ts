@@ -3,11 +3,13 @@ import { Response } from '../../framework/response/Response';
 import { TextResponse } from '../../framework/response/TextReponse';
 import { RiotLeagueV4 } from '../../lib/riot/RiotLeagueV4';
 import { RiotSummonerV4 } from '../../lib/riot/RiotSummonerV4';
+import { LolStaticLoader } from '../loader/lol/static/LolStaticLoader';
 import { ArgumentRuleTemplate } from './ArgumentRuleTemplate';
 
 export class LolUserRule extends ArgumentRuleTemplate {
   #userLoader = new RiotSummonerV4();
   #leagueLoader = new RiotLeagueV4();
+  #staticLoader = new LolStaticLoader();
 
   constructor() {
     super('롤');
@@ -25,7 +27,7 @@ export class LolUserRule extends ArgumentRuleTemplate {
     }
     const league = leagues[0];
     return new GeneralPurposeCardResponse({
-      icon: `http://ddragon.leagueoflegends.com/cdn/11.24.1/img/profileicon/${summoner.profileIconId}.png`,
+      icon: await this.#staticLoader.getProfileIcon(summoner.profileIconId),
       title: summoner.name,
       subtitle: `Lv. ${summoner.summonerLevel} / ${league.tier} ${league.rank}`,
       link: this.#createLink(summonerName),
