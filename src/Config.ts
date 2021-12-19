@@ -18,4 +18,8 @@ export class Config {
   static getTwitchClientSecret() {
     return process.env.TWITCH_SECRET_KEY || '';
   }
+
+  static getRiotApiKey() {
+    return process.env.RIOT_API_KEY || '';
+  }
 }
