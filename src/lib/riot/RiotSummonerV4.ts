@@ -8,13 +8,17 @@ export class RiotSummonerV4 extends RiotBase {
     return `https://${this.host}/lol/summoner/v4`;
   }
 
-  async getSummonersByName(name: string): Promise<RiotSummonerDto> {
+  async getSummonerByName(name: string): Promise<RiotSummonerDto | null> {
     const uri = `${this.uri}/summoners/by-name/${encodeURIComponent(name)}`;
-    const { data } = await axios.get<RiotSummonerDto>(uri, {
-      headers: {
-        'X-Riot-Token': Config.getRiotApiKey(),
-      },
-    });
-    return data;
+    try {
+      const { data } = await axios.get<RiotSummonerDto>(uri, {
+        headers: {
+          'X-Riot-Token': Config.getRiotApiKey(),
+        },
+      });
+      return data;
+    } catch {
+      return null;
+    }
   }
 }

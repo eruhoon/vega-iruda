@@ -12,6 +12,7 @@ import { HoenyChampRule } from '../rule/HoneyChampRule';
 import { KarylRule } from '../rule/KarylRule';
 import { LolScheduleRule } from '../rule/LolScheduleRule';
 import { LoLSchessSearchRule } from '../rule/LoLSchessSearchRule';
+import { LolUserRule } from '../rule/LolUserRule';
 import { MapleEventRule } from '../rule/MapleEventRule';
 import { MapleRule } from '../rule/MapleRule';
 import { MeguminRule } from '../rule/MeguminRule';
@@ -57,6 +58,7 @@ export class IrudaBot extends Bot {
       new DustRule(),
       new LolScheduleRule(),
       new LoLSchessSearchRule(),
+      new LolUserRule(),
       new VaccineRule(),
       new WeatherRule(),
       new TeraBurningRule(),

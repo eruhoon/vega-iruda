@@ -1,6 +1,6 @@
 import { RiotMiniSeriesDto } from './RiotMiniSeriesDto';
 
-export type RiotLeaugeEntryDto = {
+export type RiotLeagueEntryDto = {
   leagueId: string; //	Not included for the RANKED_TFT_TURBO queueType.
   summonerId: string; //	Player's encrypted summonerId.
   summonerName: string;

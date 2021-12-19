@@ -3,9 +3,9 @@ import { Config } from '../../Config';
 import { RiotBase } from './RiotBase';
 import { RiotLeagueEntryDto } from './RiotLeagueEntryDto';
 
-export class RiotTftLeagueV1 extends RiotBase {
+export class RiotLeagueV4 extends RiotBase {
   get uri(): string {
-    return `https://${this.host}/tft/league/v1`;
+    return `https://${this.host}/lol/league/v4`;
   }
 
   async getEntriesBySummoner(
