@@ -19,6 +19,10 @@ export class Config {
     return process.env.TWITCH_SECRET_KEY || '';
   }
 
+  static getTwitchEmbedHost(): string {
+    return process.env.TWITCH_EMBED_HOST || '';
+  }
+
   static getRiotApiKey() {
     return process.env.RIOT_API_KEY || '';
   }

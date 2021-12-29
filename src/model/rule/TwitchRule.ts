@@ -29,8 +29,10 @@ export class TwitchRule extends ArgumentRuleTemplate {
     }
     if (users && users[0]) {
       const user = users[0];
+      const host = 'player.twitch.tv';
+      const embedHost = Config.getTwitchEmbedHost();
       return new GeneralPurposeCardResponse({
-        link: '', //TODO
+        link: `https://${host}/?channel=${user.login}&parent=${embedHost}`,
         title: user.display_name,
         icon: user.profile_image_url,
         subtitle: user.description,
