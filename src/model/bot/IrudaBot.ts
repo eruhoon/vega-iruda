@@ -27,6 +27,7 @@ import { TeraBurningRule } from '../rule/TeraBurningRule';
 import { TwitchRule } from '../rule/TwitchRule';
 import { TyphoonRule } from '../rule/TyphoonRule';
 import { VaccineRule } from '../rule/VaccineRule';
+import { VaccinePassRule } from '../rule/VaccinPassRule';
 import { WeatherRule } from '../rule/WeatherRule';
 import { YungRule } from '../rule/YungRule';
 
@@ -60,6 +61,7 @@ export class IrudaBot extends Bot {
       new LoLSchessSearchRule(),
       new LolUserRule(),
       new VaccineRule(),
+      new VaccinePassRule(),
       new WeatherRule(),
       new TeraBurningRule(),
       new HoenyChampRule(),
