@@ -15,7 +15,7 @@ export class RiotTftLeagueV1 extends RiotBase {
     try {
       const { data } = await axios.get<RiotLeagueEntryDto[]>(uri, {
         headers: {
-          'X-Riot-Token': Config.getRiotApiKey(),
+          'X-Riot-Token': Config.getRiotTftApiKey(),
         },
       });
       return data;

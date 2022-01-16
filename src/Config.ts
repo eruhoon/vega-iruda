@@ -26,4 +26,8 @@ export class Config {
   static getRiotApiKey() {
     return process.env.RIOT_API_KEY || '';
   }
+
+  static getRiotTftApiKey() {
+    return process.env.RIOT_TFT_API_KEY || '';
+  }
 }

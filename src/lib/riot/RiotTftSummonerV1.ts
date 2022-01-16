@@ -13,7 +13,7 @@ export class RiotTftSummonerV4 extends RiotBase {
     try {
       const { data } = await axios.get<RiotSummonerDto>(uri, {
         headers: {
-          'X-Riot-Token': Config.getRiotApiKey(),
+          'X-Riot-Token': Config.getRiotTftApiKey(),
         },
       });
       return data;
