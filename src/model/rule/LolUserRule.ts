@@ -1,7 +1,9 @@
 import { GeneralPurposeCardResponse } from '../../framework/response/GeneralPurposeCardResponse';
 import { Response } from '../../framework/response/Response';
 import { TextResponse } from '../../framework/response/TextReponse';
+import { RiotLeagueEntryDto } from '../../lib/riot/RiotLeagueEntryDto';
 import { RiotLeagueV4 } from '../../lib/riot/RiotLeagueV4';
+import { RiotSummonerDto } from '../../lib/riot/RiotSummonerDto';
 import { RiotSummonerV4 } from '../../lib/riot/RiotSummonerV4';
 import { LolStaticLoader } from '../loader/lol/static/LolStaticLoader';
 import { ArgumentRuleTemplate } from './ArgumentRuleTemplate';
@@ -23,14 +25,25 @@ export class LolUserRule extends ArgumentRuleTemplate {
     }
     const leagues = await this.#leagueLoader.getEntriesBySummoner(summoner.id);
     if (!leagues || !leagues[0]) {
-      return new TextResponse('리그 정보 없음');
+      return this.#createResponse(summoner);
+    } else {
+      const league = leagues[0];
+      return this.#createResponse(summoner, league);
     }
-    const league = leagues[0];
+  }
+
+  async #createResponse(
+    summoner: RiotSummonerDto,
+    league?: RiotLeagueEntryDto
+  ) {
+    const levelInfo = `Lv. ${summoner.summonerLevel}`;
+    const leagueInfo = league ? `${league.tier} ${league.rank}` : null;
+    const subtitle = leagueInfo ? `${levelInfo} / ${leagueInfo}` : levelInfo;
     return new GeneralPurposeCardResponse({
       icon: await this.#staticLoader.getProfileIcon(summoner.profileIconId),
       title: summoner.name,
-      subtitle: `Lv. ${summoner.summonerLevel} / ${league.tier} ${league.rank}`,
-      link: this.#createLink(summonerName),
+      subtitle,
+      link: this.#createLink(summoner.name),
       orientation: 'horizontal',
       showType: 'in-app-browser',
     });
