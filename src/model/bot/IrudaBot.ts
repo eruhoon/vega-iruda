@@ -4,7 +4,6 @@ import { AnimationRule } from '../rule/AnimationRule';
 import { BojRule } from '../rule/BojRule';
 import { CharacterSearchRule } from '../rule/CharacterSearchRule';
 import { ClockRule } from '../rule/ClockRule';
-import { CoronaRule } from '../rule/CoronaRule';
 import { DustRule } from '../rule/DustRule';
 import { GandelRule } from '../rule/GandelRule';
 import { HelpRule } from '../rule/HelpRule';
@@ -40,7 +39,6 @@ export class IrudaBot extends Bot {
       new NamuWikiRule(),
       new SearchRule(),
       new RandomNumberRule(),
-      new CoronaRule(),
       new ClockRule(),
       new GandelRule(),
       new MeguminRule(),
