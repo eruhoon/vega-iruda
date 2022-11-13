@@ -13,7 +13,6 @@ import { LolScheduleRule } from '../rule/LolScheduleRule';
 import { LoLSchessSearchRule } from '../rule/LoLSchessSearchRule';
 import { LolUserRule } from '../rule/LolUserRule';
 import { MapleEventRule } from '../rule/MapleEventRule';
-import { MapleRule } from '../rule/MapleRule';
 import { MeguminRule } from '../rule/MeguminRule';
 import { MovieRule } from '../rule/MovieRule';
 import { NamuWikiRule } from '../rule/NamuWikiRule';
@@ -42,7 +41,6 @@ export class IrudaBot extends Bot {
       new ClockRule(),
       new GandelRule(),
       new MeguminRule(),
-      new MapleRule(),
       new MapleEventRule(),
       new MovieRule(),
       new PengRule(),
