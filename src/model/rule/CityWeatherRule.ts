@@ -19,7 +19,7 @@ export class CityWeatherRule extends ArgumentRuleTemplate {
     const city = arg;
     const weather = await this.#loader.load(city);
     const FAILTEMP = -9999;
-    // const weather = weathers.find((w) => w.name === city);
+    
     if (!weather || weather.temp === FAILTEMP || weather.temp2 === FAILTEMP ) {
       return new TextResponse('검색 실패');
     }
