@@ -59,7 +59,7 @@ export class CityWeatherLoader implements Loader<WeatherLoaderResult> {
       }
     }).find('li');
     const weatherAlt = $target.eq(1).find('span').eq(1).text() || $target.eq(1).find('span').eq(1).attr('title');
-    weather.img = 'https://www.weather.go.kr/w/resources/icon/DY@64/A/Light/' + $target.eq(1).find('span').eq(1).attr('class')?.split(" ")[1] + ".png";
+    weather.img = 'https://www.weather.go.kr/w/resources/icon/DY@64/A/Light/' + $target.eq(1).find('span').eq(1).attr('class')?.split(" ")[1];
     weather.temp = this.getTempNumber($target.eq(2).find('span').eq(1).text());
     weather.temp2 = this.getTempNumber($target.eq(2).find('span').eq(2).text());
     weather.weather =  weatherAlt ? weatherAlt : '';
