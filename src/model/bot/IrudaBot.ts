@@ -3,6 +3,7 @@ import { AfreecaSearchRule } from '../rule/AfreecaSearchRule';
 import { AnimationRule } from '../rule/AnimationRule';
 import { BojRule } from '../rule/BojRule';
 import { CharacterSearchRule } from '../rule/CharacterSearchRule';
+import { CityWeatherRule } from '../rule/CityWeatherRule';
 import { ClockRule } from '../rule/ClockRule';
 import { DustRule } from '../rule/DustRule';
 import { GandelRule } from '../rule/GandelRule';
@@ -59,6 +60,7 @@ export class IrudaBot extends Bot {
       new VaccineRule(),
       new VaccinePassRule(),
       new WeatherRule(),
+      new CityWeatherRule(),
       new TeraBurningRule(),
       new HoenyChampRule(),
     ]);

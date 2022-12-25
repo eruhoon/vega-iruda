@@ -1,3 +1,3 @@
 export interface Loader<T> {
-  load(): Promise<T>;
+  load(city?: string): Promise<T>;
 }
