@@ -1,96 +1,138 @@
-import axios from 'axios';
-import Cheerio from 'cheerio';
-import cityCodes from './cityCodes.json';
+import axios from "axios";
+import Cheerio from "cheerio";
+import { ArgumentLoader } from "../ArgumentLoader";
+import cityCodes from "./cityCodes.json";
 
-export class CityWeatherLoader {
-  #URL = "";
-  readonly #FAILTEMP = -9999;
+export const FAIL_TEMPERATURE = -9999;
+const FAIL_RESULT: WeatherLoaderResult = {
+  name: "",
+  weather: "",
+  temp: FAIL_TEMPERATURE,
+  temp2: FAIL_TEMPERATURE,
+  img: "",
+};
 
-  getTempNumber(temp: string):number {
+export class CityWeatherLoader
+  implements ArgumentLoader<string, WeatherLoaderResult[]>
+{
+  getTempNumber(temp: string): number {
     const result = /(\-?\d+\.?[\d+])?℃/g.exec(temp);
-    if ( result !== undefined && result !== null) {
-      return Number(result[1])  
+    if (result !== undefined && result !== null) {
+      return Number(result[1]);
     } else {
-      return this.#FAILTEMP;
+      return FAIL_TEMPERATURE;
     }
   }
 
-  getHours(hour: number){
-    if (hour < 10) {
-      return `0${(hour)}:00`;
-    } else {
-      return `${(hour)}:00`;
-    }
+  #getTemperature(body: string): { temperature: number; windChill: number } {
+    const $ = Cheerio.load(body);
+    const rawTemperature = $(".wrap-1 .tmp").text();
+    const temperature = this.getTempNumber(rawTemperature);
+    const rawWindChill = $(".wrap-1 .chill").text();
+    const windChill = this.getTempNumber(rawWindChill);
+    return { temperature, windChill };
+  }
+
+  #getName(
+    cityName: string,
+    cityCode: { code: number; city: string; detail?: string }
+  ): string {
+    return cityCode.detail ? cityCode.detail : cityName;
+  }
+
+  #getSummary(body: string): { img: string; weather: string } {
+    const $ = Cheerio.load(body, { normalizeWhitespace: true });
+
+    const now = new Date();
+    const date = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
+    const $target = $("div.item-wrap ul.item")
+      .filter((_, element) => {
+        const $e = $(element);
+        const parsedTime = $e.data("time");
+        const parsedHour = parseInt(parsedTime.replace(/(\d{2}):\d+/, "$1"));
+        const parsedDate = $e.data("date");
+        return (
+          date === parsedDate &&
+          now.getHours() <= parsedHour &&
+          parsedHour <= now.getHours() + 1
+        );
+      })
+      .find("li");
+    const $firstTarget = $target.eq(1);
+    const $firstSpan = $firstTarget.find("span").eq(1);
+
+    const weatherAlt = $firstSpan.text() || $firstSpan.attr("title");
+    const weather = weatherAlt ? weatherAlt : "";
+
+    const imgHost = "https://www.weather.go.kr/w/resources/icon/DY@64/A/Light";
+    const imgFileName = $firstSpan.attr("class")?.split(" ")[1];
+    const img = `${imgHost}/${imgFileName}.png`;
+
+    return { img, weather };
+  }
+
+  async #reqeustGet(
+    uri: string,
+    query: string
+  ): Promise<{ data: string; status: number }> {
+    const accept =
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36";
+    const agent =
+      "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9";
+    const host = "www.weather.go.kr";
+    const dir = "w/wnuri-fct2021/main";
+
+    const firstUrl = `https://${host}/${dir}/${uri}?${query}`;
+    const { data: data, status } = await axios.get(firstUrl, {
+      headers: { Accept: accept, "User-Agent": agent },
+    });
+    return { data: data as string, status };
   }
 
   async load(city: string): Promise<WeatherLoaderResult[]> {
-    const FAILTEMP = this.#FAILTEMP;
-    const weather = { name: "", weather: "", temp: FAILTEMP, temp2: FAILTEMP, img: ""};
-    const resultCode = cityCodes.filter((citycode)=>citycode.city === city);
+    const resultCodes = cityCodes.filter((citycode) => citycode.city === city);
 
-    if (resultCode.length < 1) {
-      return [weather];
+    if (resultCodes.length < 1) {
+      return [FAIL_RESULT];
     }
 
-    return await Promise.all(resultCode.map(async(resultCode)=>{
-      const weather = { name: "", weather: "", temp: FAILTEMP, temp2: FAILTEMP, img: ""};
-      this.#URL = `https://www.weather.go.kr/w/wnuri-fct2021/main/digital-forecast.do?code=${resultCode.code}&unit=m%2Fs&hr1=Y`;
-      const {data: data} = await axios.get(this.#URL, {
-        headers: {
-          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36',
+    return await Promise.all(
+      resultCodes.map(async (resultCode) => {
+        const { data: data, status } = await this.#reqeustGet(
+          "digital-forecast.do",
+          `code=${resultCode.code}&unit=m%2Fs&hr1=Y`
+        );
+        if (!data || status !== 200) {
+          return FAIL_RESULT;
         }
+
+        const { data: temperatureData, status: status2 } =
+          await this.#reqeustGet(
+            "current-weather.do",
+            `code=${resultCode.code}&unit=m%2Fs&aws=N`
+          );
+        if (!temperatureData || status2 !== 200) {
+          return FAIL_RESULT;
+        }
+
+        const { temperature, windChill } =
+          this.#getTemperature(temperatureData);
+        const { img, weather: weather2 } = this.#getSummary(data);
+        const name = this.#getName(city, resultCode);
+
+        return {
+          name: name,
+          weather: weather2,
+          temp: temperature,
+          temp2: windChill,
+          img: img,
+        };
       })
-      this.#URL = `https://www.weather.go.kr/w/wnuri-fct2021/main/current-weather.do?code=${resultCode.code}&unit=m%2Fs&aws=N`;
-      const {data: tempData} = await axios.get(this.#URL, {
-        headers: {
-          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36',
-        }
-      })
-
-      if (!data) {
-        return weather; 
-      }
-
-      const temp = Cheerio.load(tempData);
-      weather.temp = this.getTempNumber(temp('.wrap-1 .tmp').text());
-      weather.temp2 = this.getTempNumber(temp('.wrap-1 .chill').text());
-      console.log(temp('.wrap-1 .tmp').text(), temp('.wrap-1 .chill').text())
-      const $ = Cheerio.load(data, {
-        normalizeWhitespace: true,
-      });
-
-      const now = new Date();
-      const date = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
-      const hour: string = this.getHours(now.getHours());
-      const nextHour: string = this.getHours(now.getHours() + 1);
-      const $targets = $('div.item-wrap ul.item');
-  
-      const $target = $targets.filter((index, element) => {
-        const $e = $(element);
-        
-        if(date === $e.data('date') && ($e.data('time') === hour || $e.data('time') === nextHour) ) {
-          return true
-        } else {
-          return false
-        }
-      }).find('li');
-      const weatherAlt = $target.eq(1).find('span').eq(1).text() || $target.eq(1).find('span').eq(1).attr('title');
-      weather.img = 'https://www.weather.go.kr/w/resources/icon/DY@64/A/Light/' + $target.eq(1).find('span').eq(1).attr('class')?.split(" ")[1] + ".png";
-      // weather.temp = this.getTempNumber($target.eq(2).find('span').eq(1).text());
-      // weather.temp2 = this.getTempNumber($target.eq(2).find('span').eq(2).text());
-      weather.weather =  weatherAlt ? weatherAlt : '';
-
-      if (resultCode.detail) {
-        weather.name = resultCode.detail;
-      }
-      return weather;
-    }))
+    );
   }
 }
 
-type WeatherLoaderResult = {
+export type WeatherLoaderResult = {
   name?: string;
   weather: string;
   temp: number;
