@@ -10,13 +10,21 @@ export class CityWeatherLoader implements Loader<WeatherLoaderResult> {
 
   getTempNumber(temp: string):number {
     const result = /\d+/g.exec(temp);
-
     if ( result !== undefined && result !== null) {
       return Number(result[0])  
     } else {
       return this.#FAILTEMP;
     }
   }
+
+  getHours(hour: number){
+    if (hour < 10) {
+      return `0${(hour)}:00`;
+    } else {
+      return `${(hour)}:00`;
+    }
+  }
+
   async load(city: string): Promise<WeatherLoaderResult> {
     const FAILTEMP = this.#FAILTEMP;
     const resultCode = cityCodes.filter((citycode)=>citycode.city === city)[0].code;
@@ -36,16 +44,19 @@ export class CityWeatherLoader implements Loader<WeatherLoaderResult> {
       normalizeWhitespace: true,
     });
     const now = new Date();
+    const date = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
+    const hour: string = this.getHours(now.getHours());
+    const nextHour: string = this.getHours(now.getHours() + 1);
     const $targets = $('div.item-wrap ul.item');
-    const date = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`
-    const $target = $targets.filter((index, element) => {
-    const $e = $(element);
 
-    if(date === $e.data('date') && ($e.data('time') === `0${(now.getHours())}:00` || $e.data('time') === `0${(now.getHours() + 1)}:00`) ) {
-      return true
-    } else {
-      return false
-    }
+    const $target = $targets.filter((index, element) => {
+      const $e = $(element);
+      
+      if(date === $e.data('date') && ($e.data('time') === hour || $e.data('time') === nextHour) ) {
+        return true
+      } else {
+        return false
+      }
     }).find('li');
     const weatherAlt = $target.eq(1).find('span').eq(1).text() || $target.eq(1).find('span').eq(1).attr('title');
     weather.img = 'https://www.weather.go.kr/w/resources/icon/DY@64/A/Light/' + $target.eq(1).find('span').eq(1).attr('class')?.split(" ")[1];
