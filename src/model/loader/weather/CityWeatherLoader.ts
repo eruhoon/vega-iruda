@@ -39,34 +39,42 @@ export class CityWeatherLoader
   ): string {
     return cityCode.detail ? cityCode.detail : cityName;
   }
+  
+  #getCompareDate(firstDate: Array<number>, secondDate: Array<number>) {
+    return firstDate.every((date, index) => date === secondDate[index]);
+  }
 
   #getSummary(body: string): { img: string; weather: string } {
     const $ = Cheerio.load(body, { normalizeWhitespace: true });
 
     const now = new Date();
-    const date = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
+    const compareNowDate = [now.getFullYear(), now.getMonth() + 1, now.getDate()];
+    
     const $target = $("div.item-wrap ul.item")
       .filter((_, element) => {
         const $e = $(element);
         const parsedTime = $e.data("time");
         const parsedHour = parseInt(parsedTime.replace(/(\d{2}):\d+/, "$1"));
-        const parsedDate = $e.data("date");
+        const parsedDate: Array<number> = 
+          $e.data("date").replace(/(\d{4})\-(\d{1,2})\-(\d{1,2})/, "$1,$2,$3")
+            .split(",")
+            .map((date:string) => parseInt(date));
+
         return (
-          date === parsedDate &&
+          this.#getCompareDate(compareNowDate, parsedDate) &&
           now.getHours() <= parsedHour &&
           parsedHour <= now.getHours() + 1
         );
-      })
-      .find("li");
-    const $firstTarget = $target.eq(1);
-    const $firstSpan = $firstTarget.find("span").eq(1);
+      });
 
-    const weatherAlt = $firstSpan.text() || $firstSpan.attr("title");
+    const $fisrtWeatherSpan = $target.find('span.wic');
+
+    const weatherAlt = $fisrtWeatherSpan.text() || $fisrtWeatherSpan.attr("title");
     const weather = weatherAlt ? weatherAlt : "";
 
-    const imgHost = "https://www.weather.go.kr/w/resources/icon/DY@64/A/Light";
-    const imgFileName = $firstSpan.attr("class")?.split(" ")[1];
-    const img = `${imgHost}/${imgFileName}.png`;
+    const imgHost = "https://www.weather.go.kr/w/resources/icon/DY@64/A/Light/";
+    const imgFileName = $fisrtWeatherSpan.attr("class")?.split(" ")[1];
+    const img = imgFileName ? `${imgHost}/${imgFileName}.png` : "";
 
     return { img, weather };
   }
