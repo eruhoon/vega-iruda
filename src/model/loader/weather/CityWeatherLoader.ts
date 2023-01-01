@@ -50,23 +50,31 @@ export class CityWeatherLoader
         const $e = $(element);
         const parsedTime = $e.data("time");
         const parsedHour = parseInt(parsedTime.replace(/(\d{2}):\d+/, "$1"));
-        const parsedDate = $e.data("date");
+        const parsedDate = /(\d{4})\-(\d{1,2})\-(\d{1,2})/.exec($e.data("date"));
+
+        if(!parsedDate) {
+          return false
+        }
+        const year = parsedDate[1];
+        const day = parseInt(parsedDate[2]);
+        const month = parseInt(parsedDate[3]);
+        const parsedCompareDate = `${year}-${month}-${day}`;
+
         return (
-          date === parsedDate &&
+          date === parsedCompareDate &&
           now.getHours() <= parsedHour &&
           parsedHour <= now.getHours() + 1
         );
-      })
-      .find("li");
-    const $firstTarget = $target.eq(1);
-    const $firstSpan = $firstTarget.find("span").eq(1);
+      });
 
-    const weatherAlt = $firstSpan.text() || $firstSpan.attr("title");
+    const $fisrtWeatherSpan = $target.find('span.wic');
+
+    const weatherAlt = $fisrtWeatherSpan.text() || $fisrtWeatherSpan.attr("title");
     const weather = weatherAlt ? weatherAlt : "";
 
-    const imgHost = "https://www.weather.go.kr/w/resources/icon/DY@64/A/Light";
-    const imgFileName = $firstSpan.attr("class")?.split(" ")[1];
-    const img = `${imgHost}/${imgFileName}.png`;
+    const imgHost = "https://www.weather.go.kr/w/resources/icon/DY@64/A/Light/";
+    const imgFileName = $fisrtWeatherSpan.attr("class")?.split(" ")[1];
+    const img = imgFileName ? `${imgHost}/${imgFileName}.png` : "";
 
     return { img, weather };
   }
