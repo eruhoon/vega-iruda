@@ -40,25 +40,34 @@ export class CityWeatherLoader
     return cityCode.detail ? cityCode.detail : cityName;
   }
   
-  #getCompareDate(firstDate: Array<number>, secondDate: Array<number>) {
-    return firstDate.every((date, index) => date === secondDate[index]);
+  #getCompareDate(compareNowDate: WeatherDate, parsedDate: WeatherDate) {
+    return (
+      compareNowDate.year === parsedDate.year &&
+      compareNowDate.month === parsedDate.month &&
+      compareNowDate.day === parsedDate.day
+    );
   }
 
   #getSummary(body: string): { img: string; weather: string } {
     const $ = Cheerio.load(body, { normalizeWhitespace: true });
 
     const now = new Date();
-    const compareNowDate = [now.getFullYear(), now.getMonth() + 1, now.getDate()];
+    const compareNowDate:WeatherDate = {
+      year: now.getFullYear(),
+      month: now.getMonth() + 1,
+      day: now.getDate()
+    };
     
     const $target = $("div.item-wrap ul.item")
       .filter((_, element) => {
         const $e = $(element);
         const parsedTime = $e.data("time");
         const parsedHour = parseInt(parsedTime.replace(/(\d{2}):\d+/, "$1"));
-        const parsedDate: Array<number> = 
-          $e.data("date").replace(/(\d{4})\-(\d{1,2})\-(\d{1,2})/, "$1,$2,$3")
-            .split(",")
-            .map((date:string) => parseInt(date));
+        const [year, month, day] = $e.data("date")
+                                    .replace(/(\d{4})\-(\d{1,2})\-(\d{1,2})/, "$1,$2,$3")
+                                    .split(",")
+                                    .map((date:string) => parseInt(date));
+        const parsedDate:WeatherDate = {year, month, day};
 
         return (
           this.#getCompareDate(compareNowDate, parsedDate) &&
@@ -147,3 +156,9 @@ export type WeatherLoaderResult = {
   temp2: number;
   img: string;
 };
+
+type WeatherDate = {
+  year: number;
+  month: number;
+  day: number;
+}
