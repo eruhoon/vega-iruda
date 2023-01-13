@@ -40,11 +40,11 @@ export class CityWeatherLoader
     return cityCode.detail ? cityCode.detail : cityName;
   }
   
-  #getCompareDate(compareNowDate: WeatherDate, parsedDate: WeatherDate) {
+  #getCompareDate(firstDate: WeatherDate, secondDate: WeatherDate) {
     return (
-      compareNowDate.year === parsedDate.year &&
-      compareNowDate.month === parsedDate.month &&
-      compareNowDate.day === parsedDate.day
+      firstDate.year === secondDate.year &&
+      firstDate.month === secondDate.month &&
+      firstDate.day === secondDate.day
     );
   }
 
@@ -52,7 +52,7 @@ export class CityWeatherLoader
     const $ = Cheerio.load(body, { normalizeWhitespace: true });
 
     const now = new Date();
-    const compareNowDate:WeatherDate = {
+    const firstDate:WeatherDate = {
       year: now.getFullYear(),
       month: now.getMonth() + 1,
       day: now.getDate()
@@ -67,10 +67,10 @@ export class CityWeatherLoader
                                     .replace(/(\d{4})\-(\d{1,2})\-(\d{1,2})/, "$1,$2,$3")
                                     .split(",")
                                     .map((date:string) => parseInt(date));
-        const parsedDate:WeatherDate = {year, month, day};
+        const secondDate:WeatherDate = {year, month, day};
 
         return (
-          this.#getCompareDate(compareNowDate, parsedDate) &&
+          this.#getCompareDate(firstDate, secondDate) &&
           now.getHours() <= parsedHour &&
           parsedHour <= now.getHours() + 1
         );
