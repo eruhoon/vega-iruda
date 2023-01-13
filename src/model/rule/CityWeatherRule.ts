@@ -3,7 +3,8 @@ import { GeneralPurposeCardResponse } from "../../framework/response/GeneralPurp
 import { GeneralPurposeCarouselResponse } from "../../framework/response/GeneralPurposeCarouselResponse";
 import { Response } from "../../framework/response/Response";
 import { TextResponse } from "../../framework/response/TextReponse";
-import { ArgumentLoader } from "../loader/ArgumentLoader";
+import { cityLoader } from "../loader/cityLoader";
+import { ExpiredCityCacheLoader } from "../loader/ExpiredCityCacheLoader";
 import {
   CityWeatherLoader,
   FAIL_TEMPERATURE,
@@ -11,13 +12,14 @@ import {
 } from "../loader/weather/CityWeatherLoader";
 import { ArgumentRuleTemplate } from "./ArgumentRuleTemplate";
 
+
 export class CityWeatherRule extends ArgumentRuleTemplate {
   readonly #URL = "https://www.weather.go.kr/";
-  #loader: ArgumentLoader<string, WeatherLoaderResult[]> =
-    new CityWeatherLoader();
+  #loader: cityLoader<WeatherLoaderResult[]>;
 
   constructor() {
     super("웨더");
+    this.#loader = new ExpiredCityCacheLoader(new CityWeatherLoader(), 60 * 60 * 1000);
   }
 
   protected async makeMessageWithArg(arg: string): Promise<Response> {
