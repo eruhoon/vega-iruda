@@ -39,7 +39,6 @@ export class IrudaBot extends Bot {
       new NamuWikiRule(),
       new SearchRule(),
       new RandomNumberRule(),
-      new ClockRule(),
       new GandelRule(),
       new MeguminRule(),
       new MapleEventRule(),
