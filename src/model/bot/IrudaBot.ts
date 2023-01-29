@@ -1,7 +1,6 @@
 import { Bot } from '../../framework/bot/Bot';
 import { BojRule } from '../rule/BojRule';
 import { HelpRule } from '../rule/HelpRule';
-import { LolScheduleRule } from '../rule/LolScheduleRule';
 import { LoLSchessSearchRule } from '../rule/LoLSchessSearchRule';
 import { LolUserRule } from '../rule/LolUserRule';
 import { MapleEventRule } from '../rule/MapleEventRule';
@@ -16,7 +15,6 @@ export class IrudaBot extends Bot {
       new PokemonRule(),
       new TwitchRule(),
       new BojRule(),
-      new LolScheduleRule(),
       new LoLSchessSearchRule(),
       new LolUserRule(),
     ]);
