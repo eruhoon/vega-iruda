@@ -1,5 +1,4 @@
 import { Bot } from '../../framework/bot/Bot';
-import { AfreecaSearchRule } from '../rule/AfreecaSearchRule';
 import { BojRule } from '../rule/BojRule';
 import { HelpRule } from '../rule/HelpRule';
 import { LolScheduleRule } from '../rule/LolScheduleRule';
@@ -12,7 +11,6 @@ import { TwitchRule } from '../rule/TwitchRule';
 export class IrudaBot extends Bot {
   constructor() {
     super([
-      new AfreecaSearchRule(),
       new HelpRule(),
       new MapleEventRule(),
       new PokemonRule(),
