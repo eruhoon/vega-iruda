@@ -4,7 +4,6 @@ import { HelpRule } from '../rule/HelpRule';
 import { LoLSchessSearchRule } from '../rule/LoLSchessSearchRule';
 import { LolUserRule } from '../rule/LolUserRule';
 import { MapleEventRule } from '../rule/MapleEventRule';
-import { PokemonRule } from '../rule/PokemonRule';
 import { TwitchRule } from '../rule/TwitchRule';
 
 export class IrudaBot extends Bot {
@@ -12,7 +11,6 @@ export class IrudaBot extends Bot {
     super([
       new HelpRule(),
       new MapleEventRule(),
-      new PokemonRule(),
       new TwitchRule(),
       new BojRule(),
       new LoLSchessSearchRule(),
